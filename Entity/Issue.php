@@ -3,7 +3,7 @@
 
 namespace Oxind\FeedbackBundle\Entity;
 
-use Oxind\FeedbackBundle\Model\Issue as AbstactIssue;
+use Oxind\FeedbackBundle\Model\Issue as AbstractIssue;
 /**
  * Description of Issue
  *
