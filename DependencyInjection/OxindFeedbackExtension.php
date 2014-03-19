@@ -24,7 +24,13 @@ class OxindFeedbackExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('orm.xml');
-        $loader->load('services.xml');
+
+        // load db driver xml file
+        $loader->load(sprintf('%s.xml', $config['db_driver']));
+
+        // for now only one service file "services.xml"
+        foreach (array('services') as $basename) {
+            $loader->load(sprintf('%s.xml', $basename));
+        }
     }
 }
