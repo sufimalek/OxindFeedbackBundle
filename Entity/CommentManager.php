@@ -9,17 +9,16 @@
 namespace Oxind\FeedbackBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
-use Oxind\FeedbackBundle\Model\SuggestionInterface;
-use Oxind\FeedbackBundle\Model\SuggestionManager as BaseSuggestionManager;
+use Oxind\FeedbackBundle\Model\CommentInterface;
+use Oxind\FeedbackBundle\Model\CommentManager as BaseCommentManager;
 
 /**
  * Description of IsseuManger
  *
  * @author Bhavin Jagad <bjagd@oxind.com>
  */
-class SuggestionManager extends BaseSuggestionManager
+class CommentManager extends BaseCommentManager
 {
-    
     /**
      * @var EntityManager
      */
@@ -48,19 +47,20 @@ class SuggestionManager extends BaseSuggestionManager
         return $this->class;
     }
 
-    public function doSaveSuggestion(SuggestionInterface $suggestion)
+    public function doSaveComment(CommentInterface $comment)
     {
-        $this->em->persist($suggestion);
+        $this->em->persist($comment);
         $this->em->flush();
     }
 
-    public function findSuggestionBy(array $criteria)
+    public function findCommentsBy(array $criteria)
+    {
+        return $this->repository->findBy($criteria);
+    }
+
+    public function findCommentBy(array $criteria)
     {
         return $this->repository->findOneBy($criteria);
     }
 
-    public function findSuggestionsBy(array $criteria)
-    {
-        return $this->repository->findBy($criteria);
-    }
 }

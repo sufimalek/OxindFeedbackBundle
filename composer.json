@@ -1,0 +1,25 @@
+{
+    "name": "oxind/feedback",
+    "description": "Symfony2 Feedback Bundle",
+    "keywords": ["symfony2","feedback"],
+    "homepage": "https://github.com/Oxind/OxindFeedbackBundle",
+    "license": "GPL2",
+    "type": "library",
+    "authors": [
+        {
+            "name": "oxind",
+            "email": "admin@oxind.com",
+            "role": "Organization"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "twig/twig": ">=1.8,<2.0-dev"
+    },
+    "target-dir": "Oxind/FeedbackBundle",
+    "autoload": {
+        "psr-0": {
+            "Oxind\\FeedbackBundle": ""
+        }
+    }
+}

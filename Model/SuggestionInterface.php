@@ -12,7 +12,7 @@ namespace Oxind\FeedbackBundle\Model;
  *
  * @author Bhavin Jagad <bjagd@oxind.com>
  */
-interface SuggestionIterface
+interface SuggestionInterface
 {
     // Getters
     
@@ -41,6 +41,16 @@ interface SuggestionIterface
      */
     public function getStatus();
     
+    /**
+     * @return \DateTime $datetime
+     */
+    public function getCreatedAt();
+    
+    /**
+     * @return \DateTime $datetime
+     */
+    public function getUpdatedAt();
+    
     // Setters
     
     /**
@@ -62,5 +72,15 @@ interface SuggestionIterface
      * @param integer $status
      */
     public function setStatus($status);
+    
+    /**
+     * @param \DateTime $datetime
+     */
+    public function setCreatedAt(\DateTime $datetime);
+    
+    /**
+     * @param \DateTime $datetime
+     */
+    public function setUpdatedAt(\DateTime $datetime);
     
 }

@@ -5,13 +5,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-namespace Oxind\FeedbackBundle\Model;
+
+namespace Oxind\FeedbackBundle\Entity;
+
+use Oxind\FeedbackBundle\Model\VotesToSuggestions as AbstractVotesToSuggestions;
+
+
 /**
- * Description of VotesToSuggestionsManger
+ * Description of Suggestion
  *
  * @author Bhavin Jagad <bjagd@oxind.com>
  */
-class VotesToSuggestionsManger implements VotesToSuggestionsMangerInterface
+class VotesToSuggestions extends AbstractVotesToSuggestions
 {
-    
+
 }

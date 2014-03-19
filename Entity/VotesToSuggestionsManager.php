@@ -9,15 +9,15 @@
 namespace Oxind\FeedbackBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
-use Oxind\FeedbackBundle\Model\SuggestionInterface;
-use Oxind\FeedbackBundle\Model\SuggestionManager as BaseSuggestionManager;
+use Oxind\FeedbackBundle\Model\VotesToSuggestionsInterface;
+use Oxind\FeedbackBundle\Model\VotesToSuggestionsManager as BaseVotesToSuggestionsManager;
 
 /**
  * Description of IsseuManger
  *
  * @author Bhavin Jagad <bjagd@oxind.com>
  */
-class SuggestionManager extends BaseSuggestionManager
+class VotesToSuggestionsManager extends BaseVotesToSuggestionsManager
 {
     
     /**
@@ -48,19 +48,15 @@ class SuggestionManager extends BaseSuggestionManager
         return $this->class;
     }
 
-    public function doSaveSuggestion(SuggestionInterface $suggestion)
+    protected function doSaveVote(VotesToSuggestionsInterface $vote)
     {
-        $this->em->persist($suggestion);
+        $this->em->persist($vote);
         $this->em->flush();
     }
 
-    public function findSuggestionBy(array $criteria)
+    public function findVoteBy(array $criteria)
     {
         return $this->repository->findOneBy($criteria);
     }
 
-    public function findSuggestionsBy(array $criteria)
-    {
-        return $this->repository->findBy($criteria);
-    }
 }
