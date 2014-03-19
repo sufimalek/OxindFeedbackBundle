@@ -17,8 +17,7 @@ Add following repository Url in composer.json file as below:
 
 "repositories" : [{
         "type" : "vcs",
-        "url" : "https://github.com/Oxind/OxindFeedbackBundle.git"
-        }],
+        "url" : "https://github.com/Oxind/OxindFeedbackBundle.git"}],
 -------------------------------------------------------------------------------
 Update/install with this command:
 
