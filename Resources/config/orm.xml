@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="oxind_feedback.model.issue.class">Oxind\FeedbackBundle\Entity\Issue</parameter>
+        <parameter key="oxind_feedback.model.suggestion.class">Oxind\FeedbackBundle\Entity\Suggestion</parameter>
+        <parameter key="oxind_feedback.manager.issue.class">Oxind\FeedbackBundle\Entity\IssueManager</parameter>
+        <parameter key="oxind_feedback.manager.suggestion.class">Oxind\FeedbackBundle\Entity\SuggestionManager</parameter>
+        <parameter key="oxind_feedback.model_manager_name"/>
+    </parameters>
+
+    <services>
+        
+         <service id="oxind_feedback.entity_manager" factory-service="doctrine" factory-method="getManager" class="Doctrine\ORM\EntityManager" public="false">
+            <argument>%oxind_feedback.model_manager_name%</argument>
+        </service>
+        
+        <service id="oxind_feedback.manager.issue" class="%oxind_feedback.manager.issue.class%">
+            <argument type="service" id="oxind_feedback.entity_manager" />
+            <argument>%oxind_feedback.model.issue.class%</argument>
+        </service>
+        
+        <service id="oxind_feedback.manager.suggestion" class="%oxind_feedback.manager.suggestion.class%">
+            <argument type="service" id="oxind_feedback.entity_manager" />
+            <argument>%oxind_feedback.model.suggestion.class%</argument>
+        </service>
+        
+    </services>
+</container>
