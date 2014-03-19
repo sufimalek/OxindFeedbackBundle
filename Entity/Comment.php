@@ -8,7 +8,7 @@
 
 namespace Oxind\FeedbackBundle\Entity;
 
-use Oxind\FeedbackBundle\Model\Suggestion as AbstractSuggestion;
+use Oxind\FeedbackBundle\Model\Comment as AbstractComment;
 
 
 /**
@@ -16,7 +16,7 @@ use Oxind\FeedbackBundle\Model\Suggestion as AbstractSuggestion;
  *
  * @author Bhavin Jagad <bjagd@oxind.com>
  */
-class Suggestion extends AbstractSuggestion
+class Comment extends AbstractComment
 {
 
 }

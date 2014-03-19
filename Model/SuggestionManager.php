@@ -19,7 +19,7 @@ abstract class SuggestionManager implements SuggestionManagerInterface
     public function createSuggestion($title, $description, $userId, $status)
     {
         $class = $this->getClass();
-        
+
         $suggestion = new $class();
         $suggestion->setTitle($title);
         $suggestion->setDescription($description);
@@ -34,7 +34,7 @@ abstract class SuggestionManager implements SuggestionManagerInterface
         return $this->findSuggestionBy(array('id'=>$id));
     }
 
-    public function saveSuggestion(SuggestionIterface $suggestion)
+    public function saveSuggestion(SuggestionInterface $suggestion)
     {
         if (null === $suggestion->getTitle())
         {
@@ -49,14 +49,14 @@ abstract class SuggestionManager implements SuggestionManagerInterface
             throw new \InvalidArgumentException('UserId passed into saveSuggestion must have a UserId');
         }
         
-        $this->doSaveIssue($suggestion);
+        $this->doSaveSuggestion($suggestion);
     }
 
     /**
      * Performs the persistence of the Suggestion.
      *
      * @abstract
-     * @param SuggestionIterface $issue
+     * @param SuggestionInterface $suggestion
      */
-    abstract public function doSaveSuggestion(SuggestionIterface $suggestion);
+    abstract public function doSaveSuggestion(SuggestionInterface $suggestion);
 }

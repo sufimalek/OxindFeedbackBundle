@@ -17,7 +17,7 @@ use Oxind\FeedbackBundle\Model\IssueManger as BaseIssueManger;
  *
  * @author Bhavin Jagad <bjagd@oxind.com>
  */
-class IsseuManger extends BaseIssueManger
+class IssueManager extends BaseIssueManger
 {
     
     /**

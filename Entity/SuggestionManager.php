@@ -9,7 +9,7 @@
 namespace Oxind\FeedbackBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
-use Oxind\FeedbackBundle\Model\SuggestionIterface;
+use Oxind\FeedbackBundle\Model\SuggestionInterface;
 use Oxind\FeedbackBundle\Model\SuggestionManager as BaseSuggestionManager;
 
 /**
@@ -48,7 +48,7 @@ class SuggestionManager extends BaseSuggestionManager
         return $this->class;
     }
 
-    public function doSaveSuggestion(SuggestionIterface $suggestion)
+    public function doSaveSuggestion(SuggestionInterface $suggestion)
     {
         $this->em->persist($suggestion);
         $this->em->flush();

@@ -9,11 +9,11 @@
 namespace Oxind\FeedbackBundle\Model;
 
 /**
- * Description of Suggestion
+ * Description of Comment
  *
  * @author Bhavin Jagad <bjagd@oxind.com>
  */
-abstract class Suggestion implements SuggestionInterface
+class Comment
 {
     protected $id;
     protected $userId;
@@ -22,7 +22,7 @@ abstract class Suggestion implements SuggestionInterface
     protected $status;
     protected $createdAt;
     protected $updatedAt;
-    
+
     public function getDescription()
     {
         return $this->description;
@@ -30,22 +30,22 @@ abstract class Suggestion implements SuggestionInterface
 
     public function getId()
     {
-        return $this->id;
+        $this->getId();
     }
 
     public function getStatus()
     {
-        return $this->status;
+        $this->status;
     }
 
     public function getTitle()
     {
-        return $this->title;
+        $this->title;
     }
 
     public function getUserId()
     {
-        return $this->userId;
+        $this->userId;
     }
 
     public function setDescription($description)
@@ -87,6 +87,4 @@ abstract class Suggestion implements SuggestionInterface
     {
         $this->updatedAt = $updatedAt;
     }
-
-
 }

@@ -14,6 +14,8 @@ class Issue implements IssueInterface
     protected $title;
     protected $description;
     protected $status;
+    protected $createdAt;
+    protected $updatedAt;
 
     public function getDescription()
     {
@@ -59,5 +61,26 @@ class Issue implements IssueInterface
     {
         $this->userId = $userId;
     }
+    
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
 
 }

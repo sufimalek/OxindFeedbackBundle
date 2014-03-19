@@ -5,15 +5,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 namespace Oxind\FeedbackBundle\Model;
+
 /**
  *
  * @author Bhavin Jagad <bjagd@oxind.com>
  */
-interface SuggestionManagerInterface
+interface CommentManagerInterface
 {
     /**
-     * Returns the class of the Issue object.
+     * Returns the class of the Comment object.
      *
      * @return string
      */
@@ -25,32 +27,31 @@ interface SuggestionManagerInterface
      * @param string $description
      * @param integer $userId
      * @param integer $status
-     * @return \Oxind\FeedbackBundle\Model\SuggestionInterface $suggestion
+     * @return \Oxind\FeedbackBundle\Model\CommentInterface $comment
      */
-    public function createSuggestion($title,$description, $userId, $status );
+    public function createComment($title,$description, $userId, $status );
     
     /**
-     * Persists a suggstion.
+     * Persists a comment.
      *
-     * @param  SuggestionInterface $suggestion
+     * @param  CommentInterface $comment
      * @return void
      */
-    public function saveSuggestion(SuggestionInterface $suggestion);
+    public function saveComment(CommentInterface $comment);
     
     /**
-     * Finds a suggstion by specified criteria.
+     * Finds a comment by specified criteria.
      *
      * @param  array $criteria
-     * @return SuggestionInterface
+     * @return CommentInterface
      */
-    public function findSuggestionBy(array $criteria);
+    public function findCommentBy(array $criteria);
             
     /**
-     * Finds a suggstion by id.
+     * Finds a comment by id.
      *
      * @param  $id
-     * @return SuggestionInterface
+     * @return CommentInterface
      */
-    public function findSuggestionById($id);
-    
+    public function findCommentById($id);
 }
