@@ -3,7 +3,7 @@
     "description": "Symfony2 Feedback Bundle",
     "keywords": ["symfony2","feedback"],
     "homepage": "https://github.com/Oxind/OxindFeedbackBundle",
-    "license": "GPL2",
+    "license": "GPL-2.0",
     "type": "library",
     "authors": [
         {
