@@ -34,6 +34,17 @@ class Configuration implements ConfigurationInterface
                     ->cannotBeEmpty()
                 ->end()
                 ->scalarNode('user_class')->isRequired()->cannotBeEmpty()->end()
+                
+                ->arrayNode('form')->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('issue')->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('type')->defaultValue('oxind_feedback_issue')->end()
+                                ->scalarNode('name')->defaultValue('oxind_feedback_issue')->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end();
 
         return $treeBuilder;

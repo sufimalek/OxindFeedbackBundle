@@ -5,7 +5,6 @@ namespace Oxind\FeedbackBundle\DependencyInjection;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 /**
@@ -29,8 +28,12 @@ class OxindFeedbackExtension extends Extension
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
         // for now only one service file "services.xml"
-        foreach (array('services') as $basename) {
+        foreach (array('services', 'form') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
+        
+        $container->setParameter('oxind_feedback.form.issue.type', $config['form']['issue']['type']);
+        $container->setParameter('oxind_feedback.form.issue.name', $config['form']['issue']['name']);
+
     }
 }
