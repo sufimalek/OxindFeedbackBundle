@@ -2,6 +2,8 @@
 
 namespace Oxind\FeedbackBundle\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class FeedbackType implements FeedbackTypeInterface
 {
     /**

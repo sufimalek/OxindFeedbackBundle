@@ -23,8 +23,8 @@ abstract class FeedbackManager implements FeedbackManagerInterface
      */
     public function createFeedback(FeedbackInterface $feedback, FeedbackTypeInterface $feedbackType, UserInterface $user)
     {
-        //$class = $this->getClass();
-        $feedback = new FeedbackInterface();
+        $class = $this->getClass();
+        $feedback = new $class();
         $feedback->setFeedbackType($feedbackType);
 
         return $feedback;
