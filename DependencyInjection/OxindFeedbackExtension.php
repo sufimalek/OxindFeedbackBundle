@@ -28,7 +28,7 @@ class OxindFeedbackExtension extends Extension
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
         // for now only one service file "services.xml"
-        foreach (array('services', 'form') as $basename) {
+        foreach (array('services') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
         

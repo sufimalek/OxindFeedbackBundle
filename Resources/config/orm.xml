@@ -4,15 +4,17 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="oxind_feedback.model.issue.class">Oxind\FeedbackBundle\Entity\Issue</parameter>
-        <parameter key="oxind_feedback.model.suggestion.class">Oxind\FeedbackBundle\Entity\Suggestion</parameter>
-        <parameter key="oxind_feedback.model.comment.class">Oxind\FeedbackBundle\Entity\Comment</parameter>
-        <parameter key="oxind_feedback.model.votestosuggestions.class">Oxind\FeedbackBundle\Entity\VotesToSuggestions</parameter>
+        <parameter key="oxind_feedback.model.feedback.class">Oxind\FeedbackBundle\Entity\Feedback</parameter>
+        <parameter key="oxind_feedback.model.feedbacktype.class">Oxind\FeedbackBundle\Entity\FeedbackType</parameter>
+        <parameter key="oxind_feedback.model.feedbackdisplay.class">Oxind\FeedbackBundle\Entity\FeedbackDisplay</parameter>
+        <parameter key="oxind_feedback.model.timeline.class">Oxind\FeedbackBundle\Entity\Timeline</parameter>
+        <parameter key="oxind_feedback.model.vote.class">Oxind\FeedbackBundle\Entity\Vote</parameter>
 
-        <parameter key="oxind_feedback.manager.issue.class">Oxind\FeedbackBundle\Entity\IssueManager</parameter>
-        <parameter key="oxind_feedback.manager.suggestion.class">Oxind\FeedbackBundle\Entity\SuggestionManager</parameter>
-        <parameter key="oxind_feedback.manager.comment.class">Oxind\FeedbackBundle\Entity\CommentManager</parameter>
-        <parameter key="oxind_feedback.manager.votestosuggestions.class">Oxind\FeedbackBundle\Entity\VotesToSuggestionsManager</parameter>
+        <parameter key="oxind_feedback.manager.feedback.class">Oxind\   `FeedbackBundle\Entity\FeedbackManager</parameter>
+        <parameter key="oxind_feedback.manager.feedbacktype.class">Oxind\FeedbackBundle\Entity\FeedbackTypeManager</parameter>
+        <parameter key="oxind_feedback.manager.feedbackdisplay.class">Oxind\FeedbackBundle\Entity\FeedbackDisplayManager</parameter>
+        <parameter key="oxind_feedback.manager.timeline.class">Oxind\FeedbackBundle\Entity\TimelineManager</parameter>
+        <parameter key="oxind_feedback.manager.vote.class">Oxind\FeedbackBundle\Entity\VoteManager</parameter>
         <parameter key="oxind_feedback.model_manager_name"/>
     </parameters>
 
@@ -22,24 +24,29 @@
             <argument>%oxind_feedback.model_manager_name%</argument>
         </service>
 
-        <service id="oxind_feedback.manager.issue" class="%oxind_feedback.manager.issue.class%">
+        <service id="oxind_feedback.manager.feedback" class="%oxind_feedback.manager.feedbackdisplay.class%">
             <argument type="service" id="oxind_feedback.entity_manager" />
-            <argument>%oxind_feedback.model.issue.class%</argument>
+            <argument>%oxind_feedback.model.feedback.class%</argument>
         </service>
-
-        <service id="oxind_feedback.manager.suggestion" class="%oxind_feedback.manager.suggestion.class%">
+        
+        <service id="oxind_feedback.manager.feedbackdisplay" class="%oxind_feedback.manager.feedbackdisplay.class%">
             <argument type="service" id="oxind_feedback.entity_manager" />
-            <argument>%oxind_feedback.model.suggestion.class%</argument>
+            <argument>%oxind_feedback.model.feedbackdisplay.class%</argument>
         </service>
-
-        <service id="oxind_feedback.manager.comment" class="%oxind_feedback.manager.comment.class%">
+        
+        <service id="oxind_feedback.manager.feedbacktype" class="%oxind_feedback.manager.feedbacktype.class%">
             <argument type="service" id="oxind_feedback.entity_manager" />
-            <argument>%oxind_feedback.model.comment.class%</argument>
+            <argument>%oxind_feedback.model.feedbacktype.class%</argument>
         </service>
-
-        <service id="oxind_feedback.manager.votestosuggestions" class="%oxind_feedback.manager.votestosuggestions.class%">
+        
+        <service id="oxind_feedback.manager.timeline" class="%oxind_feedback.manager.timeline.class%">
             <argument type="service" id="oxind_feedback.entity_manager" />
-            <argument>%oxind_feedback.model.votestosuggestions.class%</argument>
+            <argument>%oxind_feedback.model.timeline.class%</argument>
+        </service>
+        
+        <service id="oxind_feedback.manager.vote" class="%oxind_feedback.manager.vote.class%">
+            <argument type="service" id="oxind_feedback.entity_manager" />
+            <argument>%oxind_feedback.model.vote.class%</argument>
         </service>
 
     </services>
