@@ -13,13 +13,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 abstract class VoteManager implements VoteManagerInterface
 {
-
     public function createVote(UserInterface $user, FeedbackInterface $feedback, $points)
     {
         $class = $this->getClass();
         $vote = new $class();
         $vote->setFeedbackId($feedback);
-
         return $vote;
     }
 

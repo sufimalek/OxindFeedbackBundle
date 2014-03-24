@@ -23,6 +23,8 @@ abstract class FeedbackTypeManager implements FeedbackTypeManagerInterface
     {
         $objFeedbackType = new FeedbackTypeInterface();
         $objFeedbackType->setName($feedbackType);
+        $objFeedbackType->setVoteMinPoint($voteMinpoint);
+        $objFeedbackType->setVoteMinPoint($voteMinpoint);
 
         return $objFeedbackType;
     }
