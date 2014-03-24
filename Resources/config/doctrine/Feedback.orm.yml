@@ -17,8 +17,9 @@ Oxind\FeedbackBundle\Entity\Feedback:
             type: string
             length: 45
         created_at:
-
+            type: datetime
         updated_at:
-
+            type: datetime
         deleted_at:
+            type: datetime
             nullable: true

@@ -8,8 +8,9 @@ Oxind\FeedbackBundle\Entity\FeedbackDisplay:
           associationKey: true
     fields:
         start_date:
-
+            type: datetime
         end_date:
+            type: datetime
             
     manyToOne:
         feedback:
