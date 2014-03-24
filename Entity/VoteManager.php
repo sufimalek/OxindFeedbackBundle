@@ -39,7 +39,7 @@ class VoteManager extends BaseVoteManager
      */
     public function findVotesByfindFeedback(FeedbackInterface $feedback)
     {
-        //TODO:
+        
     }
 
     /**
