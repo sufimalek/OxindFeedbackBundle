@@ -1,0 +1,24 @@
+Oxind\FeedbackBundle\Entity\Feedback:
+    type: mappedSuperclass
+    table: feedback
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        content:
+            type: string
+            length: 2000
+        status:
+            type: string
+            length: 45
+        created_at:
+
+        updated_at:
+
+        deleted_at:
+            nullable: true

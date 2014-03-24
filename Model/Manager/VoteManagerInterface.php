@@ -21,11 +21,12 @@ interface VoteManagerInterface
 
     /**
      * 
-     * @param string  $vote
-     * @return \Oxind\FeedbackBundle\Model\VoteInterface $vote
+     * @param UserInterface  $user
+     * @param \Oxind\FeedbackBundle\Model\FeedbackInterface $feedback
+     * @param integer $points
      * @return \Symfony\Component\Security\Core\User\UserInterface $user
      */
-    public function createVote(VoteInterface $vote, UserInterface $user, FeedbackInterface $feedback);
+    public function createVote(UserInterface $user, FeedbackInterface $feedback, $points);
 
     /**
      * Persists a vote.

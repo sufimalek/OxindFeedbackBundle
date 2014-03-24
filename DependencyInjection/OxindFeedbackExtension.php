@@ -28,12 +28,12 @@ class OxindFeedbackExtension extends Extension
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
         // for now only one service file "services.xml"
-        foreach (array('services') as $basename) {
+        foreach (array('services','form') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
         
-        $container->setParameter('oxind_feedback.form.issue.type', $config['form']['issue']['type']);
-        $container->setParameter('oxind_feedback.form.issue.name', $config['form']['issue']['name']);
+        $container->setParameter('oxind_feedback.form.feedbacktype.type', $config['form']['feedbacktype']['type']);
+        $container->setParameter('oxind_feedback.form.feedbacktype.name', $config['form']['feedbacktype']['name']);
 
     }
 }
