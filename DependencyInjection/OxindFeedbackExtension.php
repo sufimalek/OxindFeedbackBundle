@@ -25,15 +25,22 @@ class OxindFeedbackExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
         // load db driver xml file
-        $loader->load(sprintf('%s.xml', $config['db_driver']));
-
+        $loader->load(sprintf('%s.xml', $config['db_driver']));        
+        
         // for now only one service file "services.xml"
         foreach (array('services','form') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
         
+        $container->setAlias('oxind_feedback.form_factory.feedback', $config['service']['form_factory']['feedback']);
+        
         $container->setParameter('oxind_feedback.form.feedbacktype.type', $config['form']['feedbacktype']['type']);
         $container->setParameter('oxind_feedback.form.feedbacktype.name', $config['form']['feedbacktype']['name']);
+
+        $container->setParameter('oxind_feedback.model.feedback.class', $config['class']['model']['feedback']);
+        
+        $container->setParameter('oxind_feedback.form.feedback.type', $config['form']['feedback']['type']);
+        $container->setParameter('oxind_feedback.form.feedback.name', $config['form']['feedback']['name']);
 
     }
 }

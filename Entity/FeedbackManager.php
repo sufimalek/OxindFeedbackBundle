@@ -53,7 +53,17 @@ class FeedbackManager extends BaseFeedbackManager
     {
         return $this->repository->findOneBy($criteria);
     }
-
+    
+    public function findFeedbacksBy(array $criteria)
+    {
+        return $this->repository->findBy($criteria);
+    }
+    
+    public function findFeedbacksByStatus($status)
+    {
+        return $this->findFeedbacksBy( array('status' => $status) );
+    }
+    
     /**
      * Returns the fully qualified feedback class name
      *
