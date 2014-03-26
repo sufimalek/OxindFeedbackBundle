@@ -35,7 +35,6 @@ class TimelineManager extends BaseTimelineManager
      */
     public function __construct(EntityManager $em, $class)
     {
-        var_dump($class);die;
         $this->em = $em;
         $this->repository = $em->getRepository($class);
 
