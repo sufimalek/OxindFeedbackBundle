@@ -1,0 +1,16 @@
+Oxind\FeedbackBundle\Entity\Timeline:
+    type: mappedSuperclass
+    table: timeline
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        description:
+            type: string
+            length: 2000
+            nullable: true

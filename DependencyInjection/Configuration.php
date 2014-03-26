@@ -37,10 +37,10 @@ class Configuration implements ConfigurationInterface
                 
                 ->arrayNode('form')->addDefaultsIfNotSet()
                     ->children()
-                        ->arrayNode('issue')->addDefaultsIfNotSet()
+                        ->arrayNode('feedbacktype')->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('type')->defaultValue('oxind_feedback_issue')->end()
-                                ->scalarNode('name')->defaultValue('oxind_feedback_issue')->end()
+                                ->scalarNode('type')->defaultValue('oxind_feedback_feedbacktype')->end()
+                                ->scalarNode('name')->defaultValue('oxind_feedback_feedbacktype')->end()
                             ->end()
                         ->end()
                     ->end()

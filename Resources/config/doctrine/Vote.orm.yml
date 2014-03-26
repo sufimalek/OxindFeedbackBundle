@@ -1,0 +1,19 @@
+Oxind\FeedbackBundle\Entity\Vote:
+    type: mappedSuperclass
+    table: vote
+    id:
+        feedback:
+          associationKey: true
+        user:
+          associationKey: true
+    fields:
+        points:
+            type: integer
+    manyToOne:
+        feedback:
+            targetEntity: Feedback
+            inversedBy: votes
+            joinColumn:
+                name: feedback_id
+                referencedColumnName: id
+                nullable: false

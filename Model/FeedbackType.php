@@ -195,9 +195,9 @@ class FeedbackType implements FeedbackTypeInterface
      * Add Feedback entity to collection (one to many).
      *
      * @param  Feedback $feedback
-     * @return  FeedbackType
+     * @return  FeedbackInterface
      */
-    public function addFeedback(Feedback $feedback)
+    public function addFeedback(FeedbackInterface $feedback)
     {
         $this->feedbacks[] = $feedback;
 

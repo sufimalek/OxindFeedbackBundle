@@ -1,0 +1,28 @@
+Oxind\FeedbackBundle\Entity\FeedbackDisplay:
+    type: mappedSuperclass
+    table: feedback_display
+    id:
+        feedback:
+          associationKey: true
+        timeline:
+          associationKey: true
+    fields:
+        start_date:
+
+        end_date:
+            
+    manyToOne:
+        feedback:
+            targetEntity: Feedback
+            inversedBy: feedbackDisplays
+            joinColumn:
+                name: feedback_id
+                referencedColumnName: id
+                nullable: false
+        timeline:
+            targetEntity: Timeline
+            inversedBy: feedbackDisplays
+            joinColumn:
+                name: timeline_id
+                referencedColumnName: id
+                nullable: false
