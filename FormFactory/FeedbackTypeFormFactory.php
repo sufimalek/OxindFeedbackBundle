@@ -1,4 +1,4 @@
-  <?php
+<?php
 namespace Oxind\FeedbackBundle\FormFactory;
 
 use Symfony\Component\Form\FormFactoryInterface;
