@@ -4,6 +4,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     
     <services>
+        
         <service id="oxind_feedback.form_type.feedbacktype.default" class="Oxind\FeedbackBundle\Form\Type\FeedbackTypeType">
             <argument>%oxind_feedback.model.feedbacktype.class%</argument>
             <tag name="form.type" alias="oxind_feedback_feedbacktype" />
@@ -14,5 +15,17 @@
             <argument>%oxind_feedback.form.feedbacktype.type%</argument>
             <argument>%oxind_feedback.form.feedbacktype.name%</argument>
         </service>
+        
+        <service id="oxind_feedback.form_type.feedback.default" class="Oxind\FeedbackBundle\Form\Type\FeedbackType">
+            <argument>%oxind_feedback.model.feedback.class%</argument>
+            <tag name="form.type" alias="oxind_feedback_feedback" />
+        </service>
+
+        <service id="oxind_feedback.form_factory.feedback.default" class="Oxind\FeedbackBundle\FormFactory\FeedbackFormFactory" public="false">
+            <argument type="service" id="form.factory" />
+            <argument>%oxind_feedback.form.feedback.type%</argument>
+            <argument>%oxind_feedback.form.feedback.name%</argument>
+        </service>
+        
     </services>
 </container>

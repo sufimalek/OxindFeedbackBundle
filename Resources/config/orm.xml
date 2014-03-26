@@ -10,7 +10,7 @@
         <parameter key="oxind_feedback.model.timeline.class">Oxind\FeedbackBundle\Entity\Timeline</parameter>
         <parameter key="oxind_feedback.model.vote.class">Oxind\FeedbackBundle\Entity\Vote</parameter>
 
-        <parameter key="oxind_feedback.manager.feedback.class">Oxind\   `FeedbackBundle\Entity\FeedbackManager</parameter>
+        <parameter key="oxind_feedback.manager.feedback.class">Oxind\FeedbackBundle\Entity\FeedbackManager</parameter>
         <parameter key="oxind_feedback.manager.feedbacktype.class">Oxind\FeedbackBundle\Entity\FeedbackTypeManager</parameter>
         <parameter key="oxind_feedback.manager.feedbackdisplay.class">Oxind\FeedbackBundle\Entity\FeedbackDisplayManager</parameter>
         <parameter key="oxind_feedback.manager.timeline.class">Oxind\FeedbackBundle\Entity\TimelineManager</parameter>
@@ -24,7 +24,7 @@
             <argument>%oxind_feedback.model_manager_name%</argument>
         </service>
 
-        <service id="oxind_feedback.manager.feedback" class="%oxind_feedback.manager.feedbackdisplay.class%">
+        <service id="oxind_feedback.manager.feedback" class="%oxind_feedback.manager.feedback.class%">
             <argument type="service" id="oxind_feedback.entity_manager" />
             <argument>%oxind_feedback.model.feedback.class%</argument>
         </service>

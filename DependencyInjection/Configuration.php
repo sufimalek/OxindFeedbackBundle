@@ -34,7 +34,15 @@ class Configuration implements ConfigurationInterface
                     ->cannotBeEmpty()
                 ->end()
                 ->scalarNode('user_class')->isRequired()->cannotBeEmpty()->end()
-                
+                ->arrayNode('class')->isRequired()
+                    ->children()
+                        ->arrayNode('model')->isRequired()
+                            ->children()
+                                ->scalarNode('feedback')->isRequired()->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
                 ->arrayNode('form')->addDefaultsIfNotSet()
                     ->children()
                         ->arrayNode('feedbacktype')->addDefaultsIfNotSet()
@@ -43,8 +51,30 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('name')->defaultValue('oxind_feedback_feedbacktype')->end()
                             ->end()
                         ->end()
+                        
+                        ->arrayNode('feedback')->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('type')->defaultValue('oxind_feedback_feedback')->end()
+                                ->scalarNode('name')->defaultValue('oxind_feedback_feedback')->end()
+                            ->end()
+                        ->end()
                     ->end()
                 ->end()
+                
+                ->arrayNode('service')->addDefaultsIfNotSet()
+                    ->children()
+
+                        ->arrayNode('form_factory')->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('feedback')->cannotBeEmpty()->defaultValue('oxind_feedback.form_factory.feedback.default')->end()
+                            ->end()
+                        ->end()
+                        
+                        
+                        ->scalarNode('markup')->end()
+                    ->end()
+                ->end()
+                
             ->end();
 
         return $treeBuilder;

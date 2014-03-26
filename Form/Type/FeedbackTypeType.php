@@ -42,7 +42,7 @@ class FeedbackTypeType extends AbstractType
     {
         parent::setDefaultOptions($resolver);
         $resolver->setDefaults(array(
-            'data_class' => $this->threadClass,
+            'data_class' => $this->feedbackTypeClass,
         ));
     }
 
