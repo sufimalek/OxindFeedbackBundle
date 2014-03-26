@@ -32,14 +32,24 @@ class VoteManager extends BaseVoteManager
     {
         return $this->repository->findOneBy($criteria);
     }
+    
+    /**
+     * 
+     * @param array $criteria
+     * @return type
+     */
+    public function findVotesBy(array $criteria)
+    {
+        return $this->repository->findBy($criteria);
+    }
 
     /**
      * 
      * @param \Oxind\FeedbackBundle\Model\FeedbackInterface $feedback
      */
-    public function findVotesByfindFeedback(FeedbackInterface $feedback)
+    public function findVotesByFeedback(FeedbackInterface $feedback)
     {
-        
+        return $this->findVotesBy( array( 'feedback_id' => $feedback->getId() ));
     }
 
     /**

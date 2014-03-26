@@ -58,5 +58,5 @@ interface VoteManagerInterface
      * @param  $id
      * @return Feedbacknterface
      */
-    public function findVotesByfindFeedback(FeedbackInterface $feedback);
+    public function findVotesByFeedback(FeedbackInterface $feedback);
 }
