@@ -22,12 +22,13 @@ interface FeedbackManagerInterface
     
     /**
      * 
-     * @param object $title
-     * @param object $typeId
-     * @param object $creatorId
-     * @return \Oxind\FeedbackBundle\Model\FeedbackInterface $feedback
+     * @param string $title
+     * @param string $content
+     * @param \Oxind\FeedbackBundle\Model\FeedbackTypeInterface $feedbackType
+     * @param \Symfony\Component\Security\Core\User\UserInterface $user
+     * @return \Oxind\FeedbackBundle\Model\Manager\class
      */
-    public function createFeedback(FeedbackInterface $feedback, FeedbackTypeInterface $feedbackTypeId, UserInterface $user);
+    public function createFeedback( $title,$content,FeedbackTypeInterface $feedbackTypeId, UserInterface $user);
     
     /**
      * Persists a feedback.

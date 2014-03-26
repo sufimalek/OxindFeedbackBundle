@@ -21,8 +21,8 @@ abstract class FeedbackTypeManager implements FeedbackTypeManagerInterface
      */
     public function createFeedbackType(FeedbackTypeInterface $feedbackType, $voteMinpoint, $voteMaxpoint)
     {
-        $objFeedbackType = new FeedbackTypeInterface();
-        $objFeedbackType->setName($feedbackType);
+        $class = $this->getClass();
+        $objFeedbackType = new $class();
         $objFeedbackType->setVoteMinPoint($voteMinpoint);
         $objFeedbackType->setVoteMinPoint($voteMinpoint);
 

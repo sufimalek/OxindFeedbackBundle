@@ -5,6 +5,7 @@ namespace Oxind\FeedbackBundle\Entity;
 use Oxind\FeedbackBundle\Model\Manager\VoteManager as BaseVoteManager;
 use Oxind\FeedbackBundle\Model\FeedbackInterface;
 use Oxind\FeedbackBundle\Model\VoteInterface;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Description of VoteManager
@@ -13,6 +14,36 @@ use Oxind\FeedbackBundle\Model\VoteInterface;
  */
 class VoteManager extends BaseVoteManager
 {
+    /**
+     * @var EntityManager
+     */
+    protected $em;
+
+    /**
+     * @var EntityRepository
+     */
+    protected $repository;
+
+    /**
+     * @var string
+     */
+    protected $class;
+
+    /**
+     * Constructor.
+     *
+     * @param \Doctrine\ORM\EntityManager $em
+     * @param string $class
+     */
+    public function __construct(EntityManager $em, $class)
+    {
+        var_dump($class);die;
+        $this->em = $em;
+        $this->repository = $em->getRepository($class);
+
+        $metadata = $em->getClassMetadata($class);
+        $this->class = $metadata->name;
+    }
     /**
      * 
      * @param \Oxind\FeedbackBundle\Model\VoteInterface $vote

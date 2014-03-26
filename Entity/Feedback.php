@@ -11,5 +11,8 @@ use Oxind\FeedbackBundle\Model\Feedback as AbstractFeedback;
  */
 class Feedback extends AbstractFeedback
 {
-
+    public function getAuthorName()
+    {
+        return 'Anonymous';
+    }
 }

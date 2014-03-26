@@ -4,7 +4,7 @@ namespace Oxind\FeedbackBundle\Entity;
 
 use Oxind\FeedbackBundle\Model\Manager\TimelineManager as BaseTimelineManager;
 use Oxind\FeedbackBundle\Model\TimelineInterface;
-
+use Doctrine\ORM\EntityManager;
 /**
  * Description of TimelineManager
  *
@@ -12,6 +12,36 @@ use Oxind\FeedbackBundle\Model\TimelineInterface;
  */
 class TimelineManager extends BaseTimelineManager
 {
+    /**
+     * @var EntityManager
+     */
+    protected $em;
+
+    /**
+     * @var EntityRepository
+     */
+    protected $repository;
+
+    /**
+     * @var string
+     */
+    protected $class;
+
+    /**
+     * Constructor.
+     *
+     * @param \Doctrine\ORM\EntityManager $em
+     * @param string $class
+     */
+    public function __construct(EntityManager $em, $class)
+    {
+        var_dump($class);die;
+        $this->em = $em;
+        $this->repository = $em->getRepository($class);
+
+        $metadata = $em->getClassMetadata($class);
+        $this->class = $metadata->name;
+    }
     /**
      * 
      * @param \Oxind\FeedbackBundle\Model\TimelineInterface $timeline

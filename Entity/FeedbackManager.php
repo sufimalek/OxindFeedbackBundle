@@ -73,5 +73,13 @@ class FeedbackManager extends BaseFeedbackManager
     {
         return $this->class;
     }
+    /**
+     * 
+     * @return array
+     */
+    public function findAll()
+    {
+        return $this->repository->findAll();
+    }
 
 }

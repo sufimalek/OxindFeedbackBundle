@@ -29,6 +29,9 @@ class FeedbackType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title', 'text');
+        $builder->add('content', 'textarea');
+        $builder->add('submit', 'submit');
+        
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

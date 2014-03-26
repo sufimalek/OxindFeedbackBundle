@@ -5,6 +5,7 @@ namespace Oxind\FeedbackBundle\Entity;
 use Oxind\FeedbackBundle\Model\Manager\FeedbackDisplayManager as BaseFeedbackDisplayManager;
 use Oxind\FeedbackBundle\Model\TimelineInterface;
 use Oxind\FeedbackBundle\Model\FeedbackDisplayInterface;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Description of FeedbackDisplayManager
@@ -14,6 +15,38 @@ use Oxind\FeedbackBundle\Model\FeedbackDisplayInterface;
 
 class FeedbackDisplayManager extends BaseFeedbackDisplayManager
 {
+    
+    /**
+     * @var EntityManager
+     */
+    protected $em;
+
+    /**
+     * @var EntityRepository
+     */
+    protected $repository;
+
+    /**
+     * @var string
+     */
+    protected $class;
+
+    /**
+     * Constructor.
+     *
+     * @param \Doctrine\ORM\EntityManager $em
+     * @param string $class
+     */
+    public function __construct(EntityManager $em, $class)
+    {
+        var_dump($class);die;
+        $this->em = $em;
+        $this->repository = $em->getRepository($class);
+
+        $metadata = $em->getClassMetadata($class);
+        $this->class = $metadata->name;
+    }
+    
     /**
      * 
      * @param \Oxind\FeedbackBundle\Model\FeedbackDisplayInterface $feedbackDisplay

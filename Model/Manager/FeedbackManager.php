@@ -16,17 +16,24 @@ abstract class FeedbackManager implements FeedbackManagerInterface
 {
     /**
      * 
-     * @param \Oxind\FeedbackBundle\Model\FeedbackInterface $feedback
+     * @param string $title
+     * @param string $content
      * @param \Oxind\FeedbackBundle\Model\FeedbackTypeInterface $feedbackType
      * @param \Symfony\Component\Security\Core\User\UserInterface $user
      * @return \Oxind\FeedbackBundle\Model\Manager\class
      */
-    public function createFeedback(FeedbackInterface $feedback, FeedbackTypeInterface $feedbackType, UserInterface $user)
+    public function createFeedback($title,$content,FeedbackTypeInterface $feedbackType, UserInterface $user)
     {
+        $time = new \DateTime();
         $class = $this->getClass();
         $feedback = new $class();
+        $feedback->setTitle($title);
+        $feedback->setContent($content);
         $feedback->setFeedbackType($feedbackType);
-
+        $feedback->setStatus('created');
+        $feedback->setUser($user);
+        $feedback->setCreatedAt($time);
+        $feedback->setUpdatedAt($time);
         return $feedback;
     }    
 

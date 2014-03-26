@@ -4,6 +4,7 @@ namespace Oxind\FeedbackBundle\Entity;
 
 use Oxind\FeedbackBundle\Model\Manager\FeedbackTypeManager as BaseFeedbackTypeManager;
 use Oxind\FeedbackBundle\Model\FeedbackTypeInterface;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Description of FeedbackTypeManager
@@ -12,6 +13,36 @@ use Oxind\FeedbackBundle\Model\FeedbackTypeInterface;
  */
 class FeedbackTypeManager extends BaseFeedbackTypeManager
 {
+    /**
+     * @var EntityManager
+     */
+    protected $em;
+
+    /**
+     * @var EntityRepository
+     */
+    protected $repository;
+
+    /**
+     * @var string
+     */
+    protected $class;
+
+    /**
+     * Constructor.
+     *
+     * @param \Doctrine\ORM\EntityManager $em
+     * @param string $class
+     */
+    public function __construct(EntityManager $em, $class)
+    {
+        $this->em = $em;
+        $this->repository = $em->getRepository($class);
+
+        $metadata = $em->getClassMetadata($class);
+        $this->class = $metadata->name;
+    }
+    
     /**
      * 
      * @param \Oxind\FeedbackBundle\Model\FeedbackTypeInterface $feedbackType

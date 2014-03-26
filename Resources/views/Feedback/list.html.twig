@@ -1,0 +1,30 @@
+
+
+{% for feedback in feedbacks %}
+<div>
+    <h3><a href="#">{{ feedback.getTitle() }}</a></h3>
+    <p> {{ feedback.getContent()|truncate(500) }}</p>
+    {% set feedback_type = feedback.getFeedbackType() %}
+    
+    {# if feedback is votable show vote form #}
+    {% if feedback_type.getVotable() %}
+
+        {% set min_val = feedback_type.getVoteMinPoint() %}
+        {% set max_val = feedback_type.getVoteMaxPoint() %}
+        {% set name = "radio_"~random() %}
+
+        {% for vote_val in min_val..max_val %}
+
+            {% set radio_id =  name ~ "_" ~ vote_val  %}
+            
+            <lable for="{{ radio_id }}">
+                <input type="radio" name="{{ name }}" id="{{ radio_id }}">{{ vote_val }}
+            </lable>
+
+        {% endfor %}
+    <div>
+        {{ feedback.getCreatedAt()|date("m/d/Y") }}
+    </div>
+    {% endif %}
+</div>
+{% endfor %}
