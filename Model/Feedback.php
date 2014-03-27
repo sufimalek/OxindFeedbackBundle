@@ -169,10 +169,9 @@ abstract class Feedback implements FeedbackInterface
      * @param  $created_at
      * @return Feedback
      */
-    public function setCreatedAt(\DateTime $created_at)
+    public function setCreatedAt(\DateTime $created_at = null)
     {
-        $this->created_at = $created_at;
-
+        $this->created_at = ($created_at === null)?new \DateTime():$created_at;
         return $this;
     }
 
@@ -192,10 +191,9 @@ abstract class Feedback implements FeedbackInterface
      * @param  \DateTime $updated_at
      * @return Feedback
      */
-    public function setUpdatedAt(\DateTime $updated_at)
+    public function setUpdatedAt(\DateTime $updated_at = null)
     {
-        $this->updated_at = $updated_at;
-
+        $this->updated_at = ($updated_at === null)?new \DateTime():$updated_at;
         return $this;
     }
 
@@ -215,10 +213,9 @@ abstract class Feedback implements FeedbackInterface
      * @param \DateTime $deleted_at
      * @return Feedback
      */
-    public function setDeletedAt(\DateTime $deleted_at)
+    public function setDeletedAt(\DateTime $deleted_at = null)
     {
-        $this->deleted_at = $deleted_at;
-
+        $this->deleted_at = ($deleted_at === null)?new \DateTime():$deleted_at;
         return $this;
     }
 

@@ -24,7 +24,6 @@ abstract class FeedbackManager implements FeedbackManagerInterface
      */
     public function createFeedback($title,$content,FeedbackTypeInterface $feedbackType, UserInterface $user)
     {
-        $time = new \DateTime();
         $class = $this->getClass();
         $feedback = new $class();
         $feedback->setTitle($title);
@@ -32,8 +31,8 @@ abstract class FeedbackManager implements FeedbackManagerInterface
         $feedback->setFeedbackType($feedbackType);
         $feedback->setStatus('created');
         $feedback->setUser($user);
-        $feedback->setCreatedAt($time);
-        $feedback->setUpdatedAt($time);
+        $feedback->setCreatedAt();
+        $feedback->setUpdatedAt();
         return $feedback;
     }    
 

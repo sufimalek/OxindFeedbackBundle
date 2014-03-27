@@ -37,7 +37,7 @@ class FeedbackController extends Controller
     /**
      * @Route("/create", name="oxind_feedback_create")
      * @Method({"POST"})
-     * @Security("has_role('IS_AUTHENTICATED_FULLY')")
+     * @Security("has_role('ROLE_USER')")
      */
     public function createFeedbackAction(Request $request)
     {
