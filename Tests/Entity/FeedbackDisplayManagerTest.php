@@ -41,9 +41,18 @@ class FeedbackDisplayManagerTest extends OxindWebTestCase
      */
     public function testfindFeedbackDisplayBy()
     {
-        $obFeedbackDisplay = $this->obFeedbackDisplay->findFeedbackDisplayBy(array('feedback' => '1'));        
+        $obFeedbackDisplay = $this->obFeedbackDisplay->findFeedbackDisplayBy(array('feedback' => '1'));
         $this->assertTrue(count($obFeedbackDisplay) > 0);
-        $this->assertTrue(is_array($obFeedbackDisplay));
+        $this->assertTrue(is_object($obFeedbackDisplay));
+    }
+
+    /**
+     * Function to test getClass Method
+     */
+    public function testGetClass()
+    {
+        $ssClass = $this->obFeedbackDisplay->getClass();        
+        $this->assertEquals('Oxind\FeedbackBundle\Entity\FeedbackDisplay', $ssClass);
     }
 
 }
