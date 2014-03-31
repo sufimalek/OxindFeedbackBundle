@@ -1,5 +1,7 @@
 <?php
 
+namespace Oxind\FeedbackBundle\Tests\Entity;
+
 /*
  * This file is part of the OxindFeedbackBundle package.
  *
@@ -8,8 +10,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Oxind\FeedbackBundle\Tests\Entity;
 
 use Oxind\FeedbackBundle\Tests\WebTestCase\OxindWebTestCase;
 
@@ -77,8 +77,7 @@ class FeedbackTypeManagerTest extends OxindWebTestCase
         $this->assertTrue(count($obFeedbackType) > 0);
         $this->assertTrue(is_object($obFeedbackType));
     }
-    
-    
+
     /**
      * Function to test saveFeedbackType method
      */
