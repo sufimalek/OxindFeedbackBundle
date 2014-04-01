@@ -52,12 +52,6 @@ abstract class FeedbackTypeManager implements FeedbackTypeManagerInterface
 
         $this->doSaveFeedbackType($feedbackType);
     }
-    
-    public function createFeedbackTypeObj()
-    {
-        $class = $this->getClass();
-        $objFeedbackType = new $class();
-    }
 
     /**
      * Performs the persistence of a feedback.
