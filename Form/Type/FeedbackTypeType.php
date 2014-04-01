@@ -33,9 +33,12 @@ class FeedbackTypeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name','text');
-        $builder->add('votable','checkbox');
-        
+        $builder->add('id','hidden');
+        $builder->add('name','hidden');
+        $builder->add('votable','hidden');
+        $builder->add('statuses','hidden');
+        $builder->add('vote_min_point','hidden');
+        $builder->add('vote_max_point','hidden');
     }
     
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManager;
  */
 class FeedbackTypeManager extends BaseFeedbackTypeManager
 {
+
     /**
      * @var EntityManager
      */
@@ -42,7 +43,7 @@ class FeedbackTypeManager extends BaseFeedbackTypeManager
         $metadata = $em->getClassMetadata($class);
         $this->class = $metadata->name;
     }
-    
+
     /**
      * 
      * @param \Oxind\FeedbackBundle\Model\FeedbackTypeInterface $feedbackType
@@ -67,10 +68,29 @@ class FeedbackTypeManager extends BaseFeedbackTypeManager
      * Returns the fully qualified feedbackType class name
      *
      * @return string
-     **/
+     * */
     public function getClass()
     {
         return $this->class;
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    public function findAllInArray()
+    {
+        $repo = $this->em->getRepository($this->class);
+        $qb = $repo->createQueryBuilder('f')
+                ->getQuery()
+                ->getArrayResult();
+
+        $feedbackTypesArray = array();
+        foreach ($qb as $key => $value)
+        {
+            $feedbackTypesArray[$value['id']] = $value['name'];
+        }
+        return $feedbackTypesArray;
     }
 
 }

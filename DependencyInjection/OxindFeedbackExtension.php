@@ -35,10 +35,12 @@ class OxindFeedbackExtension extends Extension
         $container->setParameter('oxind_feedback.model_manager_name', $config['model_manager_name']);
         $container->setAlias('oxind_feedback.manager.feedback', $config['service']['manager']['feedback']);
         $container->setAlias('oxind_feedback.manager.feedbacktype', $config['service']['manager']['feedbacktype']);
+        $container->setAlias('oxind_feedback.manager.vote', $config['service']['manager']['vote']);
         $container->setAlias('oxind_feedback.form_factory.feedback', $config['service']['form_factory']['feedback']);
         
         $container->setParameter('oxind_feedback.model.feedback.class', $config['class']['model']['feedback']);
         $container->setParameter('oxind_feedback.model.feedbacktype.class', $config['class']['model']['feedbacktype']);
+        $container->setParameter('oxind_feedback.model.vote.class', $config['class']['model']['vote']);
         
         $container->setParameter('oxind_feedback.form.feedback.type', $config['form']['feedback']['type']);
         $container->setParameter('oxind_feedback.form.feedback.name', $config['form']['feedback']['name']);

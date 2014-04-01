@@ -5,6 +5,7 @@ namespace Oxind\FeedbackBundle\Entity;
 use Doctrine\ORM\EntityManager;
 use Oxind\FeedbackBundle\Model\Manager\FeedbackManager as BaseFeedbackManager;
 use Oxind\FeedbackBundle\Model\FeedbackInterface;
+use Oxind\FeedbackBundle\Model\FeedbackTypeInterface;
 
 /**
  * Description of FeedbackManager
@@ -13,6 +14,7 @@ use Oxind\FeedbackBundle\Model\FeedbackInterface;
  */
 class FeedbackManager extends BaseFeedbackManager
 {
+
     /**
      * @var EntityManager
      */
@@ -27,6 +29,11 @@ class FeedbackManager extends BaseFeedbackManager
      * @var string
      */
     protected $class;
+    
+    /**
+     * 
+     */
+    private $feedbackTypeClass;
 
     /**
      * Constructor.
@@ -42,37 +49,69 @@ class FeedbackManager extends BaseFeedbackManager
         $metadata = $em->getClassMetadata($class);
         $this->class = $metadata->name;
     }
-
+    
     protected function doSaveFeedback(FeedbackInterface $feedback)
     {
         $this->em->persist($feedback);
         $this->em->flush();
     }
 
+    /**
+     * 
+     * @param integer $feedbacktype_id
+     * @param string $q
+     * @return array
+     */
+    public function findFeedbackByQuery($q)
+    {
+        $repo = $this->em->getRepository($this->class);
+        $qb = $repo->createQueryBuilder('f')
+                ->where('f.title LIKE :query')
+                ->setParameter('query', '%'.$q.'%')
+                ->getQuery()
+                ->getResult();
+        
+        return $qb;
+    }
+    
+    protected function findByFeedbackId(array $feedbacks)
+    {
+        foreach($feedbacks as $key=>$feedback)
+        {
+            if($feedback->getFeedbackType()->getId() != $feedbacktype_id)
+            {
+                unset($feedbacks[$key]);
+            }
+        }
+        return $feedbacks;
+    }
+
     public function findFeedbackBy(array $criteria)
     {
         return $this->repository->findOneBy($criteria);
     }
-    
+
     public function findFeedbacksBy(array $criteria)
     {
         return $this->repository->findBy($criteria);
     }
-    
+
     public function findFeedbacksByStatus($status)
     {
-        return $this->findFeedbacksBy( array('status' => $status) );
+        return $this->findFeedbacksBy(array('status' => $status));
     }
-    
+
     /**
      * Returns the fully qualified feedback class name
      *
      * @return string
-     **/
+     * */
     public function getClass()
     {
         return $this->class;
     }
+
+    
     /**
      * 
      * @return array
@@ -81,5 +120,16 @@ class FeedbackManager extends BaseFeedbackManager
     {
         return $this->repository->findAll();
     }
+    
+    public function findFeedbacksByFeedbackType(FeedbackTypeInterface $feedbacktype)
+    {
+        return $this->findFeedbacksBy(array('feedbackType' => $feedbacktype));
+    }
 
+    public function createFeedbackObject()
+    {
+        $class = $this->getClass();
+        $feedback = new $class();
+        return $feedback;
+    }
 }

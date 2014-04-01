@@ -43,6 +43,7 @@ class VoteManager extends BaseVoteManager
         $metadata = $em->getClassMetadata($class);
         $this->class = $metadata->name;
     }
+    
     /**
      * 
      * @param \Oxind\FeedbackBundle\Model\VoteInterface $vote
