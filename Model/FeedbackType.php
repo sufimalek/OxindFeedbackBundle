@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class FeedbackType implements FeedbackTypeInterface
 {
+
     /**
      *
      * @var integer 
@@ -51,6 +52,7 @@ class FeedbackType implements FeedbackTypeInterface
     public function __construct()
     {
         $this->feedbacks = new ArrayCollection();
+        $this->statuses = new ArrayCollection();
     }
 
     /**
@@ -107,7 +109,7 @@ class FeedbackType implements FeedbackTypeInterface
      */
     public function setStatuses($statuses)
     {
-        $this->statuses = $statuses;
+        $this->statuses = implode(',', $statuses);
 
         return $this;
     }
@@ -119,7 +121,8 @@ class FeedbackType implements FeedbackTypeInterface
      */
     public function getStatuses()
     {
-        return $this->statuses;
+        $asStatus = explode(',', $this->statuses);
+        return $asStatus;
     }
 
     /**

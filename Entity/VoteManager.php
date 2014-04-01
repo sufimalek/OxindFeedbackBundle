@@ -80,7 +80,7 @@ class VoteManager extends BaseVoteManager
      */
     public function findVotesByFeedback(FeedbackInterface $feedback)
     {
-        return $this->findVotesBy( array( 'feedback_id' => $feedback->getId() ));
+        return $this->findVotesBy( array( 'feedback' => $feedback->getId() ));
     }
 
     /**

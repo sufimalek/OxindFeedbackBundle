@@ -4,7 +4,7 @@ namespace Oxind\FeedbackBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-class Timeline
+class Timeline implements TimelineInterface
 {
     /**
      *
