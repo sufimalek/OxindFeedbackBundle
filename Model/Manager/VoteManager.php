@@ -17,7 +17,9 @@ abstract class VoteManager implements VoteManagerInterface
     {
         $class = $this->getClass();
         $vote = new $class();
-        $vote->setFeedbackId($feedback);
+        $vote->setUser($user);
+        $vote->setFeedback($feedback);
+        $vote->setPoints($points);
         return $vote;
     }
 

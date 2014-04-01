@@ -14,6 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class FeedbackType extends AbstractType
 {
     private $feedbackClass;
+    protected $feedbackType;
 
     public function __construct($feedbackClass)
     {

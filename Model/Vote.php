@@ -3,10 +3,17 @@
 namespace Oxind\FeedbackBundle\Model;
 
 use Symfony\Component\Security\Core\User\UserInterface;
+use Oxind\FeedbackBundle\Model\FeedbackInterface;
 
 abstract class Vote implements VoteInterface
 {
 
+    /**
+     *
+     * @var integer
+     */
+    protected $id;
+    
     /**
      *
      * @var type 
@@ -24,7 +31,31 @@ abstract class Vote implements VoteInterface
      * @var UserInterface 
      */
     protected $user;
+    
+    /**
+     * Set the value of id.
+     *
+     * @param integer $id
+     * @return Vote
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
 
+        return $this;
+    }
+
+    /**
+     * Get the value of id.
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+        
     /**
      * 
      * @param integer $points

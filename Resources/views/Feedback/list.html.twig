@@ -1,11 +1,15 @@
 
+<form action="{{ path('oxind_feedback_search') }}" name="search" method="POST">
+    <input type="text" name="q" >
+    <input type="submit" name="search" value="Search" >
+</form>
 
 {% for feedback in feedbacks %}
 <div>
     <h3><a href="#">{{ feedback.getTitle() }}</a></h3>
     <p> {{ feedback.getContent()|truncate(500) }}</p>
     {% set feedback_type = feedback.getFeedbackType() %}
-    
+
     {# if feedback is votable show vote form #}
     {% if feedback_type.getVotable() %}
 
@@ -13,18 +17,32 @@
         {% set max_val = feedback_type.getVoteMaxPoint() %}
         {% set name = "radio_"~random() %}
 
-        {% for vote_val in min_val..max_val %}
-
-            {% set radio_id =  name ~ "_" ~ vote_val  %}
+        <form method="POST" action="{{ path('oxind_feedback_vote_create') }}" name="create_vote">
             
-            <lable for="{{ radio_id }}">
-                <input type="radio" name="{{ name }}" id="{{ radio_id }}">{{ vote_val }}
-            </lable>
+            <input type="hidden" value="{{ feedback.getId() }}" name="feedback_id" />
+            {% for vote_val in min_val..max_val %}
 
-        {% endfor %}
+                {% set radio_id =  name ~ "_" ~ vote_val  %}
+
+                        <lable for="{{ radio_id }}">
+                            <input type="radio" name="points" id="{{ radio_id }}" value="{{ vote_val }}" onClick="submitVote(feedback.getId(), vote_val)">{{ vote_val }}
+                        </lable>
+
+            {% endfor %}
+            <input type="submit" name="vote" value="Vote">
+        </form>
     <div>
         {{ feedback.getCreatedAt()|date("m/d/Y") }}
     </div>
     {% endif %}
 </div>
 {% endfor %}
+
+<script>
+    
+    function submitVote(feedback_id, vote_val){
+        
+        alert(feedback_id);
+        
+    }
+</script>

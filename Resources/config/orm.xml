@@ -43,7 +43,7 @@
             <argument>%oxind_feedback.model.timeline.class%</argument>
         </service>
         
-        <service id="oxind_feedback.manager.default.vote" class="%oxind_feedback.manager.vote.default.class%">
+        <service id="oxind_feedback.manager.vote.default" class="%oxind_feedback.manager.vote.default.class%">
             <argument type="service" id="oxind_feedback.entity_manager" />
             <argument>%oxind_feedback.model.vote.class%</argument>
         </service>

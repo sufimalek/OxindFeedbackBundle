@@ -16,6 +16,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class FeedbackController extends Controller
 {
 
+    const SESSION_FEEDBACKTYPE = 'oxind_feedback.feedbactype';
+
     /**
      * @Route("/create/{feedbacktype_id}", name="oxind_feedback_create")
      * @Method({"GET"})
@@ -67,6 +69,25 @@ class FeedbackController extends Controller
         return $this->render('OxindFeedbackBundle:Feedback:list.html.twig', array('feedbacks'=>$feedbacks));
     }
 
+    /**
+     * @Route("/search", name="oxind_feedback_search")
+     * @Method({"POST"})
+     */
+    public function getSearchAction(Request $request)
+    {
+        
+        $queryData = $request->request->get('q');
+        
+        if($queryData){
+            $feedbackManager = $this->get('oxind_feedback.manager.feedback.default');
+            $feedbacks = $feedbackManager->findFeedbackByQuery( $queryData);
+            return $this->render('OxindFeedbackBundle:Feedback:list.html.twig', array('feedbacks'=>$feedbacks));
+        }
+        else{
+           return $this->listFeedbackAction();
+        }
+    }
+    
     public function filterFeedbacklistAction()
     {
         
