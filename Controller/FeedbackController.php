@@ -73,7 +73,7 @@ class FeedbackController extends Controller
      * @Route("/search", name="oxind_feedback_search")
      * @Method({"POST"})
      */
-    public function getSearch(Request $request)
+    public function getSearchAction(Request $request)
     {
         
         $queryData = $request->request->get('q');

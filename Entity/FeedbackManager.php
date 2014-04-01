@@ -29,11 +29,6 @@ class FeedbackManager extends BaseFeedbackManager
      * @var string
      */
     protected $class;
-    
-    /**
-     * 
-     */
-    private $feedbackTypeClass;
 
     /**
      * Constructor.
@@ -126,10 +121,4 @@ class FeedbackManager extends BaseFeedbackManager
         return $this->findFeedbacksBy(array('feedbackType' => $feedbacktype));
     }
 
-    public function createFeedbackObject()
-    {
-        $class = $this->getClass();
-        $feedback = new $class();
-        return $feedback;
-    }
 }

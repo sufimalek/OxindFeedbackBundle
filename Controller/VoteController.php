@@ -21,7 +21,7 @@ class VoteController extends Controller
      * @Method({"POST"})
      * @Security("has_role('ROLE_USER')")
      */
-    public function setVote(Request $request)
+    public function setVoteAction(Request $request)
     {
         $user = $this->getUser();
         $userPoints = $user->getPoints();
