@@ -92,5 +92,27 @@ class VoteManager extends BaseVoteManager
     {
         return $this->class;
     }
+    
+    public function getVoteTotalPoints()
+    {
+        $qb =$this->repository->createQueryBuilder('v')
+                ->select('v,SUM(v.points) as totalpoint')
+                ->groupBy('v.feedback');
+        
+        $resultset = $qb->getQuery()->getResult();
+        $arrResult = array();
+        
+        foreach($resultset as $result)
+        {
+            $vote = $result[0];
+            $feedback = $vote->getFeedback();
+            if ($feedback !== null)
+            {
+                $arrResult[$feedback->getId()] = $result['totalpoint'];
+            }
+        } 
+        
+        return $arrResult;
+    }
 
 }

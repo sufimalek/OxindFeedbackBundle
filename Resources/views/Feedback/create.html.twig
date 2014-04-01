@@ -1,8 +1,6 @@
 
-<div class="col-sm-4">  
-    <section class="panel panel-default">
-        
-        <div class="panel-body">
+<div class="feedback-form"> 
+    <div class="feedback-form-container">
             <form role="form" action="{{ path('oxind_feedback_create') }}" method="POST">
                 <header class="panel-heading font-bold"> </header>
                 <div class="form-group">
@@ -16,9 +14,6 @@
                     {{ form_widget(form.content) }}                    
                    {{ form_rest(form) }}
                 </div>
-
-                <button type="submit" class="btn btn-sm btn-default">Post</button>
             </form>
-        </div>
-    </section>
+    </div>
 </div>

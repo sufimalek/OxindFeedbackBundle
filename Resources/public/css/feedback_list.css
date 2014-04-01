@@ -1,0 +1,53 @@
+.feedbacklisting {
+  float: left;
+  width: 70%;
+}
+.totalvotecount {
+  background-color: #FCFDFF;
+  border: 1px solid #CFD7E6;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  color: #8F9BB3;
+  float: left;
+  font-size: 12px;
+  line-height: 14px;
+  margin-bottom: 3px;
+  padding: 12px 0 9px;
+  text-align: center;
+  width: 10%;
+  margin-right: 10px;
+}
+.totalvotecount strong{
+  color: #292C33;
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.feedback-listing{
+    width: 100%;
+}
+.feedback-title {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1em;
+  margin-bottom: 10px;
+}
+.feedback-description{
+  font-size: 13px;
+  margin-bottom: 10px;  
+}
+.feedback-votes-details {
+  margin-left: 10%;
+}
+.feedback-created{
+  padding-left: 10px;
+  float: left;
+  width:20%;
+}
+.give-votes
+{
+    width: 80%;
+    float: right;
+    display:inline;
+}

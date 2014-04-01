@@ -1,48 +1,30 @@
 
-<form action="{{ path('oxind_feedback_search') }}" name="search" method="POST">
-    <input type="text" name="q" >
-    <input type="submit" name="search" value="Search" >
-</form>
 
+{{ include ('OxindFeedbackBundle:Feedback:feedback_search_form.html.twig') }}
+<div class="feedbacklisting">
 {% for feedback in feedbacks %}
-<div>
-    <h3><a href="#">{{ feedback.getTitle() }}</a></h3>
-    <p> {{ feedback.getContent()|truncate(500) }}</p>
+<div class="feedback-listing">
+    <div class="totalvotecount" ><strong>{{ total_vote[feedback.getId()]|default('0') }}</strong><span>votes</span></div>
+    
+    {{ include ('OxindFeedbackBundle:Feedback:feedback_title.html.twig',{'title' :feedback.getTitle()} )  }}
+    {{ include ('OxindFeedbackBundle:Feedback:feedback_content.html.twig',{'content' :feedback.getContent() })  }}
+    
+    
     {% set feedback_type = feedback.getFeedbackType() %}
 
     {# if feedback is votable show vote form #}
     {% if feedback_type.getVotable() %}
 
-        {% set min_val = feedback_type.getVoteMinPoint() %}
-        {% set max_val = feedback_type.getVoteMaxPoint() %}
-        {% set name = "radio_"~random() %}
-
-        <form method="POST" action="{{ path('oxind_feedback_vote_create') }}" name="create_vote">
-            
-            <input type="hidden" value="{{ feedback.getId() }}" name="feedback_id" />
-            {% for vote_val in min_val..max_val %}
-
-                {% set radio_id =  name ~ "_" ~ vote_val  %}
-
-                        <lable for="{{ radio_id }}">
-                            <input type="radio" name="points" id="{{ radio_id }}" value="{{ vote_val }}" onClick="submitVote(feedback.getId(), vote_val)">{{ vote_val }}
-                        </lable>
-
-            {% endfor %}
-            <input type="submit" name="vote" value="Vote">
-        </form>
-    <div>
-        {{ feedback.getCreatedAt()|date("m/d/Y") }}
+        {% set min = feedback_type.getVoteMinPoint() %}
+        {% set max = feedback_type.getVoteMaxPoint() %}
+    
+    <div class="feedback-votes-details">
+        {{ include ('OxindFeedbackBundle:Feedback:feedback_author_created.html.twig',{'created_at' :feedback.getCreatedAt() })  }}
+        <div class="give-votes">    
+         {{ include ('OxindFeedbackBundle:Feedback:feedback_vote_form.html.twig',{'feedback_id' :feedback.getId(),'min_points': min,'max_points':max} ) }}
+        </div>
     </div>
     {% endif %}
 </div>
 {% endfor %}
-
-<script>
-    
-    function submitVote(feedback_id, vote_val){
-        
-        alert(feedback_id);
-        
-    }
-</script>
+</div>

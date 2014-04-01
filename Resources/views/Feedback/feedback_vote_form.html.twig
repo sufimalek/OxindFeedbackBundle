@@ -1,0 +1,17 @@
+
+{% set name = "radio_"~random() %}
+
+<form method="POST" action="{{ path('oxind_feedback_vote_create') }}" name="create_vote">
+
+    <input type="hidden" value="{{ feedback_id }}" name="feedback_id" />
+    {% for vote_val in min_points..max_points %}
+    
+        {% set radio_id =  name ~ "_" ~ vote_val  %}
+    
+        <lable for="{{ radio_id }}">
+            <input type="radio" name="points" id="{{ radio_id }}" value="{{ vote_val }}" >{{ vote_val }}
+        </lable>
+    
+    {% endfor %}
+    <input type="submit" name="vote" value="Vote">
+</form>
