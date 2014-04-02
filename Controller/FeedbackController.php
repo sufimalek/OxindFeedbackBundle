@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 /**
  * Description of FeedbackController
  *
@@ -56,16 +57,31 @@ class FeedbackController extends Controller
         $formData = $form->getData();
 
         $feedback = $feedbackManager->createFeedback(
-                $formData->getTitle(), $formData->getContent(), $feedbackType, $this->getUser());
+                $formData->getTitle(), $formData->getContent(), $feedbackType, $this->getUser()
+                );
         $feedbackManager->saveFeedback($feedback);
         
         return $this->redirect($request->headers->get('referer'));
     }
 
-    public function listFeedbackAction()
+    /**
+     * 
+     * @param integer $feedbacktype_id
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \InvalidArgumentException
+     */
+    public function listFeedbackAction($feedbacktype_id)
     {
+        $feedbackTypeManager = $this->get('oxind_feedback.manager.feedbacktype');
+        $feedbackType = $feedbackTypeManager->findFeedbackTypeById($feedbacktype_id);
+        
+        if($feedbackType === null)
+        {
+            throw new \InvalidArgumentException('function : '.__FUNCTION__.'. line :'.__LINE__.'. Invalid feedbacktype_id');
+        }
+        
         $feedbackManager = $this->get('oxind_feedback.manager.feedback');
-        $feedbacks = $feedbackManager->findAll();
+        $feedbacks = $feedbackManager->findFeedbacksByFeedbackType($feedbackType);
         $voteManager = $this->get('oxind_feedback.manager.vote');
         $totalVote = $voteManager->getVoteTotalPoints();
         
@@ -78,7 +94,6 @@ class FeedbackController extends Controller
      */
     public function getSearchAction(Request $request)
     {
-        
         $queryData = $request->request->get('q');
         
         if($queryData){
@@ -90,10 +105,4 @@ class FeedbackController extends Controller
            return $this->listFeedbackAction();
         }
     }
-    
-    public function filterFeedbacklistAction()
-    {
-        
-    }
-
 }

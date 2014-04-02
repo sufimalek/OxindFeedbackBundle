@@ -11,8 +11,23 @@ use Oxind\FeedbackBundle\Model\Feedback as AbstractFeedback;
  */
 class Feedback extends AbstractFeedback
 {
+ 
+    /**
+     * 
+     * @return string
+     */
     public function getAuthorName()
     {
         return 'Anonymous';
+    }
+    
+    /**
+     * 
+     * @return boolean
+     */
+    public function isDisplayable()
+    {
+        $arrDisplayableStatus = $this->getFeedbackType()->getDisplayableStatuses();
+        return  (in_array( $this->getStatus() , $arrDisplayableStatus));
     }
 }
