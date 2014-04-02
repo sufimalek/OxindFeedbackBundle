@@ -46,7 +46,7 @@ class FeedbackController extends Controller
     {
         $feedbackTypeManager = $this->get('oxind_feedback.manager.feedbacktype');
         $feedbackManager = $this->get('oxind_feedback.manager.feedback');
-        
+
         $form = $this->get('oxind_feedback.form_factory.feedback')->createForm();
 
         $feedback = $request->request->get('oxind_feedback_feedback');
@@ -58,9 +58,9 @@ class FeedbackController extends Controller
 
         $feedback = $feedbackManager->createFeedback(
                 $formData->getTitle(), $formData->getContent(), $feedbackType, $this->getUser()
-                );
+        );
         $feedbackManager->saveFeedback($feedback);
-        
+
         return $this->redirect($request->headers->get('referer'));
     }
 
@@ -74,35 +74,50 @@ class FeedbackController extends Controller
     {
         $feedbackTypeManager = $this->get('oxind_feedback.manager.feedbacktype');
         $feedbackType = $feedbackTypeManager->findFeedbackTypeById($feedbacktype_id);
-        
-        if($feedbackType === null)
+
+        if ($feedbackType === null)
         {
-            throw new \InvalidArgumentException('function : '.__FUNCTION__.'. line :'.__LINE__.'. Invalid feedbacktype_id');
+            throw new \InvalidArgumentException('function : ' . __FUNCTION__ . '. line :' . __LINE__ . '. Invalid feedbacktype_id');
         }
-        
+
         $feedbackManager = $this->get('oxind_feedback.manager.feedback');
         $feedbacks = $feedbackManager->findFeedbacksByFeedbackType($feedbackType);
-        $voteManager = $this->get('oxind_feedback.manager.vote');
-        $totalVote = $voteManager->getVoteTotalPoints();
+        return $this->getFeedbackListResponce($feedbacks, $feedbacktype_id);
         
-        return $this->render('OxindFeedbackBundle:Feedback:list.html.twig', array('feedbacks'=>$feedbacks, 'total_vote' =>$totalVote));
     }
 
     /**
      * @Route("/search", name="oxind_feedback_search")
-     * @Method({"POST"})
+     * @Method({"GET"})
      */
     public function getSearchAction(Request $request)
     {
-        $queryData = $request->request->get('q');
-        
-        if($queryData){
-            $feedbackManager = $this->get('oxind_feedback.manager.feedback.default');
-            $feedbacks = $feedbackManager->findFeedbackByQuery( $queryData);
-            return $this->render('OxindFeedbackBundle:Feedback:list.html.twig', array('feedbacks'=>$feedbacks));
-        }
-        else{
-           return $this->listFeedbackAction();
+        $queryData = $request->query->get('q');
+        $feedbacktype_id = $request->query->get('feedbacktype_id');
+        $feedbackTypeManager = $this->get('oxind_feedback.manager.feedbacktype');
+        $feedbackType = $feedbackTypeManager->findFeedbackTypeById($feedbacktype_id);
+        if ($queryData)
+        {
+            $feedbackManager = $this->get('oxind_feedback.manager.feedback');
+            $feedbacks = $feedbackManager->findFeedbackByQuery($queryData);
+            return $this->getFeedbackListResponce($feedbacks, $feedbacktype_id);
+        } else
+        {
+            return $this->forward('OxindFeedbackBundle:Feedback:listFeedback', 
+                    array('feedbacktype_id' => $feedbacktype_id));
         }
     }
+    
+    private function getFeedbackListResponce($feedbacks, $feedbacktype_id)
+    {
+        $voteManager = $this->get('oxind_feedback.manager.vote');
+        $totalVote = $voteManager->getVoteTotalPoints();
+
+        return $this->render('OxindFeedbackBundle:Feedback:list.html.twig', array(
+                    'feedbacks' => $feedbacks,
+                    'total_vote' => $totalVote,
+                    'feedbacktype_id' => $feedbacktype_id
+        ));
+    }
+
 }

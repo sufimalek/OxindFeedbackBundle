@@ -62,7 +62,9 @@ class FeedbackManager extends BaseFeedbackManager
         $repo = $this->em->getRepository($this->class);
         $qb = $repo->createQueryBuilder('f')
                 ->where('f.title LIKE :query')
+//                ->where('f.feedbackType = :feedbacktype')
                 ->setParameter('query', '%'.$q.'%')
+//                ->setParameter('f.feedbackType' )
                 ->getQuery()
                 ->getResult();
         
