@@ -94,7 +94,6 @@ class FeedbackController extends Controller
     {
         $queryData = $request->query->get('q');
         $feedbacktype_id = $request->query->get('feedbacktype_id');
-        $feedbackTypeManager = $this->get('oxind_feedback.manager.feedbacktype');
         if ($queryData)
         {
             $feedbackManager = $this->get('oxind_feedback.manager.feedback');

@@ -26,7 +26,6 @@ function loadSearchlist(feedbacktype_id,url)
     var query = document.getElementById('query').value;
     var serverquery = encodeURI("?q=" + query + "&feedbacktype_id=" + feedbacktype_id);
 
-    alert(url);
     xmlhttp.open("GET", url + serverquery, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
