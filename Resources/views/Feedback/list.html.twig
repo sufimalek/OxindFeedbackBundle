@@ -1,8 +1,7 @@
-
-
 {{ include ('OxindFeedbackBundle:Feedback:feedback_search_form.html.twig') }}
+
 <div class="feedbacklisting">
-{% for feedback in feedbacks %}
+{% for feedback in feedbacks if feedback.isDisplayable() %}
 <div class="feedback-listing">
     <div class="totalvotecount" ><strong>{{ total_vote[feedback.getId()]|default('0') }}</strong><span>votes</span></div>
     
