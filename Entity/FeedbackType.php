@@ -18,7 +18,7 @@ class FeedbackType extends AbstractFeedbackType
      * return array containing index of displayable statuses.
      * @return array
      */
-    public function getDisplayableStatusesIndex()
+    public function getDisplayableStatuses()
     {
         return array();
     }
