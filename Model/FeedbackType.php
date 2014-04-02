@@ -21,7 +21,7 @@ class FeedbackType implements FeedbackTypeInterface
 
     /**
      *
-     * @var string 
+     * @var array
      */
     protected $statuses;
 
@@ -52,7 +52,7 @@ class FeedbackType implements FeedbackTypeInterface
     public function __construct()
     {
         $this->feedbacks = new ArrayCollection();
-        $this->statuses = new ArrayCollection();
+        $this->statuses = array();
     }
 
     /**
@@ -107,9 +107,9 @@ class FeedbackType implements FeedbackTypeInterface
      * @param string $statuses
      * @return  FeedbackType
      */
-    public function setStatuses($statuses)
+    public function addStatuses($status)
     {
-        $this->statuses = implode(',', $statuses);
+        $this->statuses[] = $status;
 
         return $this;
     }
@@ -117,12 +117,11 @@ class FeedbackType implements FeedbackTypeInterface
     /**
      * Get the value of statuses.
      *
-     * @return string
+     * @return array
      */
     public function getStatuses()
     {
-        $asStatus = explode(',', $this->statuses);
-        return $asStatus;
+        return $this->statuses;
     }
 
     /**

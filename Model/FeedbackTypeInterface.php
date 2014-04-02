@@ -35,17 +35,17 @@ interface FeedbackTypeInterface
     public function getName();
 
     /**
-     * Set the value of statuses.
+     * Add $status to the value of statuses array.
      *
-     * @param string $statuses
+     * @param string $status
      * @return FeedbackTypeInterface
      */
-    public function setStatuses($statuses);
+    public function addStatuses($status);
 
     /**
      * Get the value of statuses.
      *
-     * @return \Doctrine\Common\Collections\ArrayCollection
+     * @return array
      */
     public function getStatuses();
 
