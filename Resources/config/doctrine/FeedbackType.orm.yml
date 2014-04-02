@@ -12,7 +12,7 @@ Oxind\FeedbackBundle\Entity\FeedbackType:
             length: 45
             unique: true
         statuses:
-            type: text
+            type: array
         votable:
             type: boolean
         vote_min_point:
