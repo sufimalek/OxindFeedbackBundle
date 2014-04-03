@@ -14,7 +14,8 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "twig/twig": ">=1.8,<2.0-dev"
+        "twig/twig": ">=1.8,<2.0-dev",
+        "doctrine/doctrine-fixtures-bundle": "~2.2",
     },
     "target-dir": "Oxind/FeedbackBundle",
     "autoload": {
