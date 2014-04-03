@@ -1,4 +1,3 @@
-
 <?php
 namespace Oxind\FeedbackBundle\Entity;
 
