@@ -81,3 +81,10 @@
 .form-group > label {
   width: 100%;
 }
+.form-group > label {
+  width: 100%;
+}
+
+.form-group > textarea {
+    width: 100%;
+}
