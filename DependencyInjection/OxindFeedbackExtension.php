@@ -44,6 +44,8 @@ class OxindFeedbackExtension extends Extension
         
         $container->setParameter('oxind_feedback.form.feedback.type', $config['form']['feedback']['type']);
         $container->setParameter('oxind_feedback.form.feedback.name', $config['form']['feedback']['name']);
+        
+        $container->setParameter('oxind_feedback.fixtures', $config['fixtures']);
 
     }
 }

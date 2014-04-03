@@ -35,6 +35,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->scalarNode('model_manager_name')->defaultNull()->end()
                 ->scalarNode('user_class')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('fixtures')->isRequired()->cannotBeEmpty()->end()
                 ->arrayNode('class')->isRequired()
                     ->children()
                         ->arrayNode('model')->isRequired()
