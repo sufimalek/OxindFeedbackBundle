@@ -71,5 +71,13 @@
 }
 .feedback-form-container {
   margin-left: 10px;
-  margin-right: 10px;
+  margin-right: 10px;    
+}
+
+.form-group > input {
+  width: 100%;
+}
+
+.form-group > label {
+  width: 100%;
 }
