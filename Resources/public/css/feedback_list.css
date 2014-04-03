@@ -35,19 +35,41 @@
 }
 .feedback-description{
   font-size: 13px;
-  margin-bottom: 10px;  
+  margin-bottom: 10px;
+  margin-left: 11%;
 }
 .feedback-votes-details {
-  margin-left: 10%;
-}
-.feedback-created{
-  padding-left: 10px;
+  border-bottom: 1px solid #ccc;
   float: left;
-  width:20%;
+  padding-left: 10%;
+  width: 100%;
+  margin-bottom: 10px;
 }
-.give-votes
-{
-    width: 80%;
-    float: right;
-    display:inline;
+.feedback-created {
+  float: left;
+  padding-left: 10px;
+  width: 20%;
+}
+.give-votes {
+  display: inline;
+  float: right;
+  width: 80%;
+  margin-bottom: 10px;
+}
+.feedback-form {
+  border: 1px solid #CCCCCC;
+  float: left;
+  margin-left: 10px;
+  padding-top: 0;
+}
+.form-title {
+  background: none repeat scroll 0 0 #AFE1F8;
+  padding-left: 10px;
+}
+.form-title > h3 {
+  margin: 0;
+}
+.feedback-form-container {
+  margin-left: 10px;
+  margin-right: 10px;
 }
