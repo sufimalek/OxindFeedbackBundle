@@ -1,6 +1,6 @@
 <?php
 
-namespace Oxind\FeedbackBundle\DataFixtures\ORM; 
+namespace Oxind\FeedbackBundle\DataFixtures\ORM;
 
 /*
  * This file is part of the OxindFeedbackBundle package.
@@ -51,9 +51,12 @@ abstract class LoadFeedbackData extends AbstractFixture implements ContainerAwar
      */
     public function getModelFixtures()
     {
+        $rootDir = $this->container->get('kernel')->getRootDir();
+
         $resourcePath = $this->container->getParameter('oxind_feedback.fixtures');
-        $filePath = $resourcePath.'\\'.$this->getModelFile().'.yml';
-        $filePath = dirname(__FILE__).'/../../../../../../../src/'.$filePath;
+        $filePath = $resourcePath . '/' . $this->getModelFile() . '.yml';
+        $filePath = $rootDir . '/../src/' . $filePath;
+
         $fixturesPath = realpath($filePath);
         $fixtures = Yaml::parse($fixturesPath);
         return $fixtures;
