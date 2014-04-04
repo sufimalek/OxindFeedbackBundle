@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class FeedbackType implements FeedbackTypeInterface
 {
-
     /**
      *
      * @var integer 
@@ -45,6 +44,30 @@ class FeedbackType implements FeedbackTypeInterface
 
     /**
      *
+     * @var array
+     */
+    protected $displayable_statuses;
+
+    /**
+     *
+     * @var string 
+     */
+    protected $timeline_start_status;
+
+    /**
+     *
+     * @var string 
+     */
+    protected $timeline_end_status;
+
+    /**
+     *
+     * @var string 
+     */
+    protected $credit_vote_status;
+
+    /**
+     *
      * @var \Doctrine\Common\Collections\Collection 
      */
     protected $feedbacks;
@@ -53,6 +76,7 @@ class FeedbackType implements FeedbackTypeInterface
     {
         $this->feedbacks = new ArrayCollection();
         $this->statuses = array();
+        $this->displayable_statuses = array();
     }
 
     /**
@@ -214,6 +238,74 @@ class FeedbackType implements FeedbackTypeInterface
     public function getFeedbacks()
     {
         return $this->feedbacks;
+    }
+
+    /**
+     * Add $status to the value of statuses array.
+     *
+     * @param string $status
+     * @return FeedbackTypeInterface
+     */
+    public function addDisplayableStatuses($status)
+    {
+        $this->displayable_statuses[] = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of displaybleStatuses.
+     *
+     * @return array
+     */
+    public function getDisplayableStatuses()
+    {
+        return $this->displayable_statuses;
+    }
+
+    public function setTimelineStartStatus($status)
+    {
+        $this->timeline_start_status = $status;
+        return $this;
+    }
+
+    /**
+     * Get timeline_start_status
+     * @return string
+     */
+    public function getTimelineStartStatus()
+    {
+        return $this->timeline_start_status;
+    }
+
+    /**
+     * @param string $status when feedback seted to this status it will be added to timeline.
+     * @return FeedbackTypeInterface
+     */
+    public function setTimelineEndStatus($status)
+    {
+        $this->timeline_end_status = $status;
+        return $this;
+    }
+
+    /**
+     * Get timeline_end_status
+     * @return string
+     */
+    public function getTimelineEndStatus()
+    {
+        return $this->timeline_start_status;
+    }
+
+    public function getCreditVoteStatus()
+    {
+        return $this->credit_vote_status;
+    }
+
+    public function setCreditVoteStatus($status)
+    {
+        $this->credit_vote_status = $status;
+        return $this;
     }
 
 }

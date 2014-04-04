@@ -56,6 +56,38 @@ class LoadFeedbackTypes extends LoadFeedbackData implements OrderedFixtureInterf
             $feedbackType->setVoteMinPoint($values['vote_min_point']);
             $feedbackType->setVoteMaxPoint($values['vote_max_point']);
             
+            foreach($values['displayable_statuses'] as $status)
+            {
+                if(in_array($status,$values['statuses']))
+                {
+                    $feedbackType->addDisplayableStatuses($status);
+                }
+                else
+                {
+                    throw new Exception( $status. ' not found in \'statuses\'. check oxind_feedback.statuses configuration. ');
+                }
+                
+            }
+            
+            if(!in_array( $values['timeline_start_status'], $values['statuses']))
+            {
+                 throw new Exception( $values['timeline_start_status']. ' not found in \'statuses\'. check oxind_feedback.statuses configuration. ');
+            }
+            
+            if(!in_array($values['timeline_end_status'], $values['statuses']))
+            {
+                 throw new Exception( $values['timeline_end_status']. ' not found in \'statuses\'. check oxind_feedback.statuses configuration. ');
+            }
+            
+            if(!in_array($values['credit_vote_status'], $values['statuses']))
+            {
+                 throw new Exception( $values['credit_vote_status']. ' not found in \'statuses\'. check oxind_feedback.statuses configuration. ');
+            }
+            
+            $feedbackType->setTimelineStartStatus($values['timeline_start_status']);
+            $feedbackType->setTimelineEndStatus($values['timeline_end_status']);
+            $feedbackType->setCreditVoteStatus($values['credit_vote_status']);
+            
             $obManager->persist($feedbackType);
         }
         

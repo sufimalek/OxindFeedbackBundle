@@ -2,8 +2,9 @@
 
 namespace Oxind\FeedbackBundle\Model;
 
-interface FeedbackTypeInterface 
+interface FeedbackTypeInterface
 {
+
     /**
      * Set the value of id.
      *
@@ -109,4 +110,54 @@ interface FeedbackTypeInterface
      */
     public function getFeedbacks();
 
+    /**
+     * Add $status to the value of statuses array.
+     *
+     * @param string $status
+     * @return FeedbackTypeInterface
+     */
+    public function addDisplayableStatuses($status);
+
+    /**
+     * Get the value of displaybleStatuses.
+     *
+     * @return array
+     */
+    public function getDisplayableStatuses();
+
+    /**
+     * Get timeline_start_status
+     * @return string
+     */
+    public function getTimelineStartStatus();
+
+    /**
+     * @param string $status when feedback seted to this status it will be added to timeline.
+     * @return FeedbackTypeInterface
+     */
+    public function setTimelineEndStatus($status);
+
+    /**
+     * Get timeline_end_status
+     * @return string
+     */
+    public function getTimelineEndStatus();
+
+    /**
+     * @param string $status when feedback seted to this status it will set end time in to timeline.
+     * @return FeedbackTypeInterface
+     */
+    public function setTimelineStartStatus($status);
+    
+    /**
+     * Get credit_vote_status
+     * @return string
+     */
+    public function getCreditVoteStatus();
+
+    /**
+     * @param string $status when feedback seted to this status it will set end time in to timeline.
+     * @return FeedbackTypeInterface
+     */
+    public function setCreditVoteStatus($status);
 }

@@ -9,17 +9,5 @@ use Oxind\FeedbackBundle\Model\FeedbackType as AbstractFeedbackType;
  */
 class FeedbackType extends AbstractFeedbackType
 {
-    public function getDefaultStatusIndex()
-    {
-        return 0;
-    }
     
-    /**
-     * return array containing index of displayable statuses.
-     * @return array
-     */
-    public function getDisplayableStatuses()
-    {
-        return array();
-    }
 }

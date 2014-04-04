@@ -19,3 +19,11 @@ Oxind\FeedbackBundle\Entity\FeedbackType:
             type: integer
         vote_max_point:
             type: integer
+        displayable_statuses:
+            type: array
+        timeline_start_status:
+            type: string
+        timeline_end_status:
+            type: string
+        credit_vote_status:
+            type: string
