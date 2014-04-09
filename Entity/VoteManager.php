@@ -6,7 +6,6 @@ use Oxind\FeedbackBundle\Model\Manager\VoteManager as BaseVoteManager;
 use Oxind\FeedbackBundle\Model\FeedbackInterface;
 use Oxind\FeedbackBundle\Model\VoteInterface;
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Description of VoteManager

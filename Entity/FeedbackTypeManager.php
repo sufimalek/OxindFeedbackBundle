@@ -101,9 +101,11 @@ class FeedbackTypeManager extends BaseFeedbackTypeManager
     public function findAll()
     {
         $obRepository = $this->em->getRepository($this->class);
-        return $asResult = $obRepository->createQueryBuilder('f')
+        $asResult = $obRepository->createQueryBuilder('f')
                 ->getQuery()
                 ->getArrayResult();
+        
+        return $asResult;
     }
 
 }
