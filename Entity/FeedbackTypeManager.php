@@ -9,7 +9,7 @@ use Doctrine\ORM\EntityManager;
 /**
  * Description of FeedbackTypeManager
  *
- * @author Malek Sufiyan <smalek@oxind.com>
+ * @author Malek Sufiyan <smalek@oxind.com> Hardik Patel <hpatel@oxind.com>
  */
 class FeedbackTypeManager extends BaseFeedbackTypeManager
 {
@@ -75,7 +75,7 @@ class FeedbackTypeManager extends BaseFeedbackTypeManager
     }
 
     /**
-     * 
+     * Function to find all data in array
      * @return array
      */
     public function findAllInArray()
@@ -86,11 +86,24 @@ class FeedbackTypeManager extends BaseFeedbackTypeManager
                 ->getArrayResult();
 
         $feedbackTypesArray = array();
-        foreach ($qb as $key => $value)
+        /* @var $value type */
+        foreach ($qb as $value)
         {
             $feedbackTypesArray[$value['id']] = $value['name'];
         }
         return $feedbackTypesArray;
+    }
+
+    /**
+     * Function to find all data
+     * @return array
+     */
+    public function findAll()
+    {
+        $obRepository = $this->em->getRepository($this->class);
+        return $asResult = $obRepository->createQueryBuilder('f')
+                ->getQuery()
+                ->getArrayResult();
     }
 
 }
