@@ -4,6 +4,22 @@ namespace Oxind\FeedbackBundle\Model;
 
 interface FeedbackDisplayInterface
 {
+    
+    /**
+     * Set the value of id.
+     *
+     * @param integer $id
+     * @return FeedbackDisplayInterface
+     */
+    public function setId($id);
+
+    /**
+     * Get the value of id.
+     *
+     * @return integer
+     */
+    public function getId();
+    
     /**
      * Set the value of start_date.
      *

@@ -17,16 +17,15 @@ abstract class FeedbackDisplayManager implements FeedbackDisplayManagerInterface
      * 
      * @param \Oxind\FeedbackBundle\Model\FeedbackInterface $feedback
      * @param \Oxind\FeedbackBundle\Model\TimelineInterface $timeline
-     * @param \DateTime $startDate
-     * @param \DateTime $endtDate
      * @return \Oxind\FeedbackBundle\Model\FeedbackDisplayInterface
      */
-    public function createFeedbackDisplay(FeedbackInterface $feedback, TimelineInterface $timeline, $startDate, $endtDate)
+    public function createFeedbackDisplay(FeedbackInterface $feedback, TimelineInterface $timeline)
     {
-        $feedback = new FeedbackDisplayInterface();
-        $feedback->setFeedback($feedback);
-
-        return $feedback;
+        $class = $this->getClass();
+        $feedbackDisplay = new $class();
+        $feedbackDisplay->setFeedback($feedback);
+        $feedbackDisplay->setTimeline($timeline);
+        return $feedbackDisplay;
     }
 
     /**

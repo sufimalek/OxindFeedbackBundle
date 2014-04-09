@@ -29,10 +29,9 @@ abstract class FeedbackManager implements FeedbackManagerInterface
         $feedback->setTitle($title);
         $feedback->setContent($content);
         $feedback->setFeedbackType($feedbackType);
-        $feedback->setStatus('created');
+        
         $feedback->setUser($user);
-        $feedback->setCreatedAt();
-        $feedback->setUpdatedAt();
+
         return $feedback;
     }    
 

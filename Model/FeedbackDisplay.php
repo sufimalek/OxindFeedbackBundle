@@ -6,6 +6,11 @@ class FeedbackDisplay implements FeedbackDisplayInterface
 {
     /**
      *
+     * @var integer 
+     */
+    protected $id;
+    /**
+     *
      * @var \DateTime
      */
     protected $start_date;
@@ -28,6 +33,29 @@ class FeedbackDisplay implements FeedbackDisplayInterface
      */
     protected $timeline;
 
+    /**
+     * Set the value of id.
+     *
+     * @param integer $id
+     * @return FeedbackDisplayInterface
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of id.
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    
     /**
      * Set the value of start_date.
      *

@@ -114,5 +114,20 @@ class VoteManager extends BaseVoteManager
         
         return $arrResult;
     }
+    
+    public function creditVotePointsBack(FeedbackInterface $feedback)
+    {
+        $votes = $this->findVotesByFeedback($feedback);
+        
+        foreach($votes as $vote)
+        {
+            $votedPoints = $vote->getPoints();
+            $userPoint = $vote->getUser()->getPoints();
+            $userPoint += $votedPoints;
+            $vote->getUser()->setPoints($userPoint);
+            $this->em->persist($vote);
+        }
+        $this->em->flush();
+    }
 
 }
