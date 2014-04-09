@@ -7,6 +7,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Oxind\FeedbackBundle\Form\Type\FeedbackFilter;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Description of FeedbackController
@@ -65,7 +67,8 @@ class FeedbackController extends Controller
     }
 
     /**
-     * 
+     * @Route("/feedback_list", name="oxind_feedback_list")
+     * @Method({"GET|POST"})
      * @param integer $feedbacktype_id
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \InvalidArgumentException
@@ -73,6 +76,7 @@ class FeedbackController extends Controller
     public function listFeedbackAction($feedbacktype_id)
     {
         $feedbackTypeManager = $this->get('oxind_feedback.manager.feedbacktype');
+
         $feedbackType = $feedbackTypeManager->findFeedbackTypeById($feedbacktype_id);
 
         if ($feedbackType === null)
@@ -84,29 +88,40 @@ class FeedbackController extends Controller
         $feedbacks = $feedbackManager->findFeedbacksByFeedbackType($feedbackType);
          
         return $this->getFeedbackListResponce($feedbacks, $feedbacktype_id);
-        
     }
 
     /**
      * @Route("/search", name="oxind_feedback_search")
-     * @Method({"GET"})
+     * @Method({"GET|POST"})
      */
     public function getSearchAction(Request $request)
     {
-        $queryData = $request->query->get('q');
-        $feedbacktype_id = $request->query->get('feedbacktype_id');
-        if ($queryData)
+        $ssSearchCriteria = $request->query->get('q');
+        $asFormData = $request->get('feecback_filter');
+        $snIdFeedbackType = $request->query->get('feedbacktype_id');
+        $obFeedbackManager = $this->get('oxind_feedback.manager.feedback');
+        if (!empty($asFormData))
         {
-            $feedbackManager = $this->get('oxind_feedback.manager.feedback');
-            $feedbacks = $feedbackManager->findFeedbackByQuery($queryData);
-            return $this->getFeedbackListResponce($feedbacks, $feedbacktype_id);
+            $snIdFeedbackType = $asFormData['feedbacktypes'];
+            $ssStatus = $asFormData['statuses'];
+            $feedbacks = $obFeedbackManager->findFeedbackByQuery(array('feedbacktype_id' => $snIdFeedbackType, 'statuses' => $ssStatus));
+            return $this->getFeedbackListResponce($feedbacks, $snIdFeedbackType);
+        } else if ($ssSearchCriteria)
+        {
+            $feedbacks = $obFeedbackManager->findFeedbackByQuery(array('title' => $ssSearchCriteria));
+            return $this->getFeedbackListResponce($feedbacks, $snIdFeedbackType);
         } else
         {
-            return $this->forward('OxindFeedbackBundle:Feedback:listFeedback', 
-                    array('feedbacktype_id' => $feedbacktype_id));
+            return $this->forward('OxindFeedbackBundle:Feedback:listFeedback', array('feedbacktype_id' => $snIdFeedbackType));
         }
     }
-    
+
+    /**
+     * funtion to render list template
+     * @param type $feedbacks
+     * @param type $feedbacktype_id
+     * @return type
+     */
     private function getFeedbackListResponce($feedbacks, $feedbacktype_id)
     {
         $voteManager = $this->get('oxind_feedback.manager.vote');
@@ -116,6 +131,54 @@ class FeedbackController extends Controller
                     'feedbacks' => $feedbacks,
                     'total_vote' => $totalVote,
                     'feedbacktype_id' => $feedbacktype_id
+        ));
+    }
+
+    /**
+     * @Route("/statuslist", name="oxind_feedback_status_list")
+     * @Method({"POST"})     
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     */
+    public function getStatusListAction(Request $request)
+    {
+        $snFeedbackTypeId = $request->get('id');
+        $getFeedbackTypeStatuses = $this->getFeedbackTypeStatuses($snFeedbackTypeId);
+        return new JsonResponse($getFeedbackTypeStatuses);
+    }
+
+    /**
+     * Function to get array option for feedbacktype statuses
+     * @return array
+     */
+    protected function getFeedbackTypeStatuses($snId)
+    {
+        $obFeedbackTypeManager = $this->get('oxind_feedback.manager.feedbacktype');
+        $asFeedbackTypeStatus = array();
+
+        if ($snId != '')
+        {
+            $obFeedbackType = $obFeedbackTypeManager->findFeedbackTypeById($snId);
+            if ($obFeedbackType != null && !empty($obFeedbackType))
+            {
+                foreach ($obFeedbackType->getDisplayableStatuses() as $ssValue)
+                    $asFeedbackTypeStatus[strtolower($ssValue)] = ucfirst($ssValue);
+            }
+        }
+
+        return $asFeedbackTypeStatus;
+    }
+
+    /**
+     * Action to render filters form
+     * @return type
+     */
+    public function feedbackfilterAction()
+    {
+        $obFormFilter = $this->createForm(new FeedbackFilter(), null, array(
+            'action' => $this->generateUrl('oxind_feedback_search')));
+
+        return $this->render('OxindFeedbackBundle:Feedback:feedback_filters.html.twig', array(
+                    'form' => $obFormFilter->createView(),
         ));
     }
 

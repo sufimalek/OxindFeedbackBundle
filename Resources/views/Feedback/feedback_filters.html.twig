@@ -1,0 +1,60 @@
+{# Display the form #}
+
+{{ form_start(form, {'attr': {'id': 'feecback_filter'}}) }}
+    {{ form_errors(form) }}
+    {{ form_row(form.feedbacktypes) }}
+    {{ form_row(form.statuses) }}
+    {{ form_row(form.submit, { 'label': 'Filter' }) }}
+{{ form_end(form) }}
+<div class="loader" id="loader" style="display: none;"> 
+    <img src="{{ asset('bundles/oxindfeedback/images/loader.gif') }}" />
+</div>
+<script type="text/javascript">
+    
+$(document).ready(function() {
+    $('#feecback_filter_feedbacktypes').change(function() {
+        
+            // add loading image to div
+        $('#loader').show();
+        var val = $(this).val();
+        if (val != '')
+        {
+            $.ajax({
+                type: "POST",
+                url: "{{ path('oxind_feedback_status_list') }}?id=" + val,                
+                success: function(data) {
+                    // Remove current options
+                    $('#feecback_filter_statuses').html('');
+                    $('#feecback_filter_statuses').append('<option value="">--- Select status ---</option>');
+                    $.each(data, function(k, v) {
+                        $('#feecback_filter_statuses').append('<option value="' + k + '">' + v + '</option>');
+                        $('#loader').hide();
+                    });
+                }
+            });
+
+            return false;
+        }
+    });
+
+    $('#feecback_filter').submit(function(e) {
+        var url = $(this).attr("action");
+
+        $('#loader').show();
+        $.ajax({
+            type: "POST",
+            url: url, // Or your url generator like Routing.generate('discussion_create')
+            data: $(this).serialize(),
+            dataType: "html",
+            success: function(data) {
+                $("#update_listing").html(data);
+                $('#loader').hide();
+            }
+        });
+
+        return false;
+
+    });
+
+});
+</script>
