@@ -82,6 +82,7 @@ class FeedbackController extends Controller
 
         $feedbackManager = $this->get('oxind_feedback.manager.feedback');
         $feedbacks = $feedbackManager->findFeedbacksByFeedbackType($feedbackType);
+         
         return $this->getFeedbackListResponce($feedbacks, $feedbacktype_id);
         
     }
@@ -110,7 +111,7 @@ class FeedbackController extends Controller
     {
         $voteManager = $this->get('oxind_feedback.manager.vote');
         $totalVote = $voteManager->getVoteTotalPoints();
-
+        $userVotes = $voteManager->getVoteTotalPoints();
         return $this->render('OxindFeedbackBundle:Feedback:list.html.twig', array(
                     'feedbacks' => $feedbacks,
                     'total_vote' => $totalVote,

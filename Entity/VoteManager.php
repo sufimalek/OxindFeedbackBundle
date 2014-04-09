@@ -6,6 +6,7 @@ use Oxind\FeedbackBundle\Model\Manager\VoteManager as BaseVoteManager;
 use Oxind\FeedbackBundle\Model\FeedbackInterface;
 use Oxind\FeedbackBundle\Model\VoteInterface;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Description of VoteManager
@@ -82,7 +83,7 @@ class VoteManager extends BaseVoteManager
     {
         return $this->findVotesBy( array( 'feedback' => $feedback->getId() ));
     }
-
+    
     /**
      * Returns the fully qualified vote class name
      *
@@ -129,5 +130,18 @@ class VoteManager extends BaseVoteManager
         }
         $this->em->flush();
     }
-
+    
+    public function findVoteByUserAndFeedback($user_id, $feedback_id)
+    {
+        $repo = $this->em->getRepository($this->class);
+        $qb = $repo->createQueryBuilder('v')
+                ->where('v.feedback = :feedback_id')
+                ->andWhere('v.user = :user_id')
+                ->setParameter('feedback_id', $feedback_id)
+                ->setParameter('user_id', $user_id)
+                ->getQuery()
+                ->getResult();
+        
+        return $qb;
+    }
 }

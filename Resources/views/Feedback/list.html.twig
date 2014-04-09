@@ -1,6 +1,14 @@
 <div>
 <div class="feedbacklisting" id="feedback-list-container" >
-    {% for feedback in feedbacks %}
+    
+    {% set condition = false %}
+    
+    {% if app.user is null %}
+            {% set condition = true %}
+    {% endif %}
+    
+    {% for feedback in feedbacks if feedback.isDisplayable() %}
+    
     <div class="feedback-listing">
         <div class="totalvotecount" ><strong>{{ total_vote[feedback.getId()]|default('0') }}</strong><span>votes</span></div>
 
@@ -9,9 +17,13 @@
 
 
         {% set feedback_type = feedback.getFeedbackType() %}
-
+        
+        {% if not condition %}
+            {% set condition = not feedback.hasUserVoted(app.user) %}
+        {% endif %}
+        
         {# if feedback is votable show vote form #}
-        {% if feedback_type.getVotable() %}
+        {% if feedback_type.getVotable() and condition %}
 
             {% set min = feedback_type.getVoteMinPoint() %}
             {% set max = feedback_type.getVoteMaxPoint() %}
@@ -23,6 +35,8 @@
             </div>
         </div>
         {% endif %}
+        
+        
     </div>
     {% endfor %}
 </div>

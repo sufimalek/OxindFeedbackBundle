@@ -28,11 +28,14 @@ class VoteController extends Controller
         $feedabck_id = $request->request->get('feedback_id');
         $points = $request->request->get('points');
         
-        if($userPoints !== null && ($userPoints >= $points))
+        $voteManager = $this->get('oxind_feedback.manager.vote');
+        $alreadyVoted = $voteManager->findVoteByUserAndFeedback($user->getId(), $feedabck_id);
+        $countAlreadyVoted = count($alreadyVoted);
+        
+        if($userPoints !== null && ($userPoints >= $points) && $countAlreadyVoted == 0)
         {
             $feedbackManager = $this->get('oxind_feedback.manager.feedback');
             $feedback = $feedbackManager->findFeedbackById($feedabck_id);
-            $voteManager = $this->get('oxind_feedback.manager.vote');
             $remainingPoints = $userPoints - $points;
             $user->setPoints($remainingPoints);
             $vote = $voteManager->createVote($user, $feedback, $points);
