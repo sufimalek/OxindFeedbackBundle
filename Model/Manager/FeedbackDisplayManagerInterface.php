@@ -24,11 +24,9 @@ interface FeedbackDisplayManagerInterface
      * 
      * @param \Oxind\FeedbackBundle\Model\FeedbackInterface  $feedback
      * @param \Oxind\FeedbackBundle\Model\TimelineInterface  $timeline
-     * @param \DateTime  $startDate
-     * @param \DateTime  $endtDate
      * @return \Oxind\FeedbackBundle\Model\FeedbackDisplayInterface $feedbackType
      */
-    public function createFeedbackDisplay(FeedbackInterface $feedback, TimelineInterface $timeline, $startDate, $endtDate);
+    public function createFeedbackDisplay(FeedbackInterface $feedback, TimelineInterface $timeline);
 
     /**
      * Persists a feedbackType.

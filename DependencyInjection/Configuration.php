@@ -42,6 +42,8 @@ class Configuration implements ConfigurationInterface
                             ->children()
                                 ->scalarNode('feedback')->isRequired()->end()
                                 ->scalarNode('feedbacktype')->isRequired()->end()
+                                ->scalarNode('timeline')->isRequired()->end()
+                                ->scalarNode('feedbackdisplay')->isRequired()->end()
                                 ->scalarNode('vote')->isRequired()->end()
                             ->end()
                         ->end()

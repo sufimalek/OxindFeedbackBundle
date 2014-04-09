@@ -2,28 +2,13 @@ Oxind\FeedbackBundle\Entity\FeedbackDisplay:
     type: mappedSuperclass
     table: feedback_display
     id:
-        feedback:
-          associationKey: true
-        timeline:
-          associationKey: true
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
     fields:
         start_date:
             type: datetime
         end_date:
             type: datetime
-            
-    manyToOne:
-        feedback:
-            targetEntity: Feedback
-            inversedBy: feedbackDisplays
-            joinColumn:
-                name: feedback_id
-                referencedColumnName: id
-                nullable: false
-        timeline:
-            targetEntity: Timeline
-            inversedBy: feedbackDisplays
-            joinColumn:
-                name: timeline_id
-                referencedColumnName: id
-                nullable: false
+            nullable: true

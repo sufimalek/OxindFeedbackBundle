@@ -60,6 +60,16 @@ class TimelineManager extends BaseTimelineManager
     {
         return $this->repository->findOneBy($criteria);
     }
+    
+    /**
+     * 
+     * @param string $title
+     * @return \Oxind\FeedbackBundle\Model\TimelineInterface 
+     */
+   public function findTimelineByTitle($title)
+    {
+        return $this->repository->findOneBy(array('title' => $title));
+    }
 
     /**
      * Returns the fully qualified timeline class name

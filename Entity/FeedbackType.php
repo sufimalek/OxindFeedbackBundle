@@ -9,5 +9,8 @@ use Oxind\FeedbackBundle\Model\FeedbackType as AbstractFeedbackType;
  */
 class FeedbackType extends AbstractFeedbackType
 {
-    
+    public function getDefaultStatus()
+    {
+        return $this->getStatuses()[0];
+    }
 }

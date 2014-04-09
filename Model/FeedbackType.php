@@ -294,7 +294,7 @@ class FeedbackType implements FeedbackTypeInterface
      */
     public function getTimelineEndStatus()
     {
-        return $this->timeline_start_status;
+        return $this->timeline_end_status;
     }
 
     public function getCreditVoteStatus()

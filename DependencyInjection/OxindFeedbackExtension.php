@@ -28,7 +28,7 @@ class OxindFeedbackExtension extends Extension
         $loader->load(sprintf('%s.xml', $config['db_driver']));        
         
         // for now only one service file "services.xml"
-        foreach (array('services','form') as $basename) {
+        foreach (array('services','form','events') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
         
@@ -41,6 +41,8 @@ class OxindFeedbackExtension extends Extension
         $container->setParameter('oxind_feedback.model.feedback.class', $config['class']['model']['feedback']);
         $container->setParameter('oxind_feedback.model.feedbacktype.class', $config['class']['model']['feedbacktype']);
         $container->setParameter('oxind_feedback.model.vote.class', $config['class']['model']['vote']);
+        $container->setParameter('oxind_feedback.model.timeline.class', $config['class']['model']['timeline']);
+        $container->setParameter('oxind_feedback.model.feedbackdisplay.class', $config['class']['model']['feedbackdisplay']);
         
         $container->setParameter('oxind_feedback.form.feedback.type', $config['form']['feedback']['type']);
         $container->setParameter('oxind_feedback.form.feedback.name', $config['form']['feedback']['name']);
