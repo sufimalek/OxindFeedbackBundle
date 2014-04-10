@@ -4,7 +4,6 @@ namespace Oxind\FeedbackBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Oxind\FeedbackBundle\Entity\Feedback;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Oxind\FeedbackBundle\Model\FeedbackInterface;
 use Oxind\FeedbackBundle\Model\TimelineInterface;
 /**
