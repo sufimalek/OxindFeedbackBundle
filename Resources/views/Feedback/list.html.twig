@@ -1,3 +1,9 @@
+{% for success in app.session.flashbag.get('success') if success != null %}
+    <div class="flash-success">
+        {{ success }}
+    </div>
+{% endfor %}
+
 <div id="update_listing">
 <div class="feedbacklisting" id="feedback-list-container" >
     

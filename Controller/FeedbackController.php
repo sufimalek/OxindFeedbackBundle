@@ -57,12 +57,14 @@ class FeedbackController extends Controller
 
         $form->handleRequest($request);
         $formData = $form->getData();
-
+        
         $feedback = $feedbackManager->createFeedback(
                 $formData->getTitle(), $formData->getContent(), $feedbackType, $this->getUser()
         );
         $feedbackManager->saveFeedback($feedback);
-
+        
+        $this->setFlashMessage('flash_message.feedback_created');
+        
         return $this->redirect($request->headers->get('referer'));
     }
 
@@ -189,4 +191,11 @@ class FeedbackController extends Controller
         ));
     }
 
+    public function setFlashMessage($message)
+    {
+        return $this->get('session')
+                ->getFlashBag()
+                ->set('success', $this->get('translator')->trans($message, array(), 'feedback'));
+    }
+    
 }
