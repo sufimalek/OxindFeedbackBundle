@@ -113,6 +113,7 @@ class FeedbackController extends Controller
             return $this->getFeedbackListResponce($feedbacks, $snIdFeedbackType);
         } else if ($ssSearchCriteria)
         {
+            
             $feedbacks = $obFeedbackManager->findFeedbackByQuery(array('title' => $ssSearchCriteria));
             return $this->getFeedbackListResponce($feedbacks, $snIdFeedbackType);
         } else
