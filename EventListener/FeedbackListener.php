@@ -18,10 +18,9 @@ class FeedbackListener
 
     /**
      * 
-     * @param \Oxind\FeedbackBundle\Model\TimelineInterface $timelineManager
-     * @param \Oxind\FeedbackBundle\Model\FeedbackDisplayInterface $feedbackDisplayManager
+     * @param type $container
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct($container)
     {
         $this->container = $container;
     }
