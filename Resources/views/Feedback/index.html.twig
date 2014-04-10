@@ -1,8 +1,1 @@
-{% block feedbackcontent %}
-                {{ include ('OxindFeedbackBundle:Feedback:feedback_search_form.html.twig', { 'feedbacktype_id': feedbacktype.getId() } ) }}
-                {% render (controller('OxindFeedbackBundle:Feedback:feedbackfilter' )) %}
-                {{ render(controller('OxindFeedbackBundle:Feedback:listFeedback', {'feedbacktype_id' : feedbacktype.getId() })) }}                    
-                {% endblock %}
-                {% block feedbackform %}
-                {{ render(controller('OxindFeedbackBundle:Feedback:getFeedbackForm' , {'feedbacktype_id' : feedbacktype.getId() })) }}                       
-{% endblock %}
+Hello {{ name }}!
