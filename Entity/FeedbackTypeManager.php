@@ -96,15 +96,17 @@ class FeedbackTypeManager extends BaseFeedbackTypeManager
 
     /**
      * Function to find all data
-     * @return array
+     * @param type $asParams
+     * @return type
      */
-    public function findAll()
+    public function findAllFeedBackType($asParams)
     {
-        $obRepository = $this->em->getRepository($this->class);
-        $asResult = $obRepository->createQueryBuilder('f')
-                ->getQuery()
-                ->getArrayResult();
-        
+        $qb = $this->repository->createQueryBuilder('f');
+        if ($asParams != '')
+            $qb->where($qb->expr()->in('f.name', $asParams));
+
+        $asResult = $qb->getQuery()->getArrayResult();
+
         return $asResult;
     }
 

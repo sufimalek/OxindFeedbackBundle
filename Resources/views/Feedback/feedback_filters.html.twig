@@ -2,9 +2,7 @@
 
 {{ form_start(form, {'attr': {'id': 'feecback_filter'}}) }}
     {{ form_errors(form) }}
-    {{ form_row(form.feedbacktypes) }}
     {{ form_row(form.statuses) }}
-    {{ form_row(form.submit, { 'label': 'Filter' }) }}
 {{ form_end(form) }}
 <div class="loader" id="loader" style="display: none;"> 
     <img src="{{ asset('bundles/oxindfeedback/images/loader.gif') }}" />
@@ -37,14 +35,14 @@ $(document).ready(function() {
         }
     });
 
-    $('#feecback_filter').submit(function(e) {
-        var url = $(this).attr("action");
-
+   $('#feecback_filter_statuses').change(function() {
+        var url = "{{ path('oxind_feedback_search') }}";
+        var data= $("#feecback_filter").serialize();
         $('#loader').show();
         $.ajax({
             type: "POST",
             url: url, // Or your url generator like Routing.generate('discussion_create')
-            data: $(this).serialize(),
+            data: data,
             dataType: "html",
             success: function(data) {
                 $("#update_listing").html(data);

@@ -1,10 +1,11 @@
+
 <div class="feedback-listing">
     <div class="totalvotecount" ><strong>{{ total_vote[feedback.getId()]|default('0') }}</strong><span>votes</span></div>
-    
+
     {{ include ('OxindFeedbackBundle:Feedback:feedback_title.html.twig',{'title' :feedback.getTitle()} )  }}
     {{ include ('OxindFeedbackBundle:Feedback:feedback_content.html.twig',{'content' :feedback.getContent() })  }}
-    
-    
+
+
     {% set feedback_type = feedback.getFeedbackType() %}
 
     {# if feedback is votable show vote form #}
@@ -12,12 +13,12 @@
 
         {% set min = feedback_type.getVoteMinPoint() %}
         {% set max = feedback_type.getVoteMaxPoint() %}
-    
+
     <div class="feedback-votes-details">
         {{ include ('OxindFeedbackBundle:Feedback:feedback_author_created.html.twig',{'created_at' :feedback.getCreatedAt() })  }}
-        <div class="give-votes">    
+            <div class="give-votes">    
          {{ include ('OxindFeedbackBundle:Feedback:feedback_vote_form.html.twig',{'feedback_id' :feedback.getId(),'min_points': min,'max_points':max} ) }}
-        </div>
-    </div>
+                </div>
+            </div>
     {% endif %}
-</div>
+        </div>

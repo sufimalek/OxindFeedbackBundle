@@ -79,6 +79,9 @@ class FeedbackController extends Controller
 
         $feedbackType = $feedbackTypeManager->findFeedbackTypeById($feedbacktype_id);
 
+        $obFormFilter = $this->createForm(new FeedbackFilter($feedbackType), null, array(
+            'action' => $this->generateUrl('oxind_feedback_search')));
+
         if ($feedbackType === null)
         {
             throw new \InvalidArgumentException('function : ' . __FUNCTION__ . '. line :' . __LINE__ . '. Invalid feedbacktype_id');
@@ -86,8 +89,8 @@ class FeedbackController extends Controller
 
         $feedbackManager = $this->get('oxind_feedback.manager.feedback');
         $feedbacks = $feedbackManager->findFeedbacksByFeedbackType($feedbackType);
-         
-        return $this->getFeedbackListResponce($feedbacks, $feedbacktype_id);
+
+        return $this->getFeedbackListResponce($feedbacks, $feedbacktype_id, $obFormFilter->createView());
     }
 
     /**
@@ -102,7 +105,7 @@ class FeedbackController extends Controller
         $obFeedbackManager = $this->get('oxind_feedback.manager.feedback');
         if (!empty($asFormData))
         {
-            $snIdFeedbackType = $asFormData['feedbacktypes'];
+            $snIdFeedbackType = $asFormData['feedbacktype_id'];
             $ssStatus = $asFormData['statuses'];
             $feedbacks = $obFeedbackManager->findFeedbackByQuery(array('feedbacktype_id' => $snIdFeedbackType, 'statuses' => $ssStatus));
             return $this->getFeedbackListResponce($feedbacks, $snIdFeedbackType);
@@ -169,11 +172,16 @@ class FeedbackController extends Controller
 
     /**
      * Action to render filters form
+     * @param integer $feedbacktype_id
      * @return type
      */
-    public function feedbackfilterAction()
+    public function feedbackfilterAction($feedbacktype_id)
     {
-        $obFormFilter = $this->createForm(new FeedbackFilter(), null, array(
+        $feedbackTypeManager = $this->get('oxind_feedback.manager.feedbacktype');
+
+        $feedbackType = $feedbackTypeManager->findFeedbackTypeById($feedbacktype_id);
+
+        $obFormFilter = $this->createForm(new FeedbackFilter($feedbackType), null, array(
             'action' => $this->generateUrl('oxind_feedback_search')));
 
         return $this->render('OxindFeedbackBundle:Feedback:feedback_filters.html.twig', array(
