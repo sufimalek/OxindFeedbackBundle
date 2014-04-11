@@ -43,7 +43,7 @@
             </div>
         </div>
         
-        {% else %}
+        {% elseif feedback_type.getVotable() %}
         
         <div class="feedback-votes-details" >{{ 'flash_message.already_voted'|trans }}</div>
         
