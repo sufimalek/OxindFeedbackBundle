@@ -1,3 +1,5 @@
+{% trans_default_domain "feedback" %}
+
 {% for success in app.session.flashbag.get('success') if success != null %}
     <div class="flash-success">
         {{ success }}
@@ -40,6 +42,11 @@
              {{ include ('OxindFeedbackBundle:Feedback:feedback_vote_form.html.twig',{'feedback_id' :feedback.getId(),'min_points': min,'max_points':max} ) }}
             </div>
         </div>
+        
+        {% else %}
+        
+        <div>{{ 'flash_message.already_voted'|trans }}</div>
+        
         {% endif %}
         
         

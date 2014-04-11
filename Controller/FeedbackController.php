@@ -192,6 +192,11 @@ class FeedbackController extends Controller
         ));
     }
 
+    /**
+     * 
+     * @param integer $message
+     * @return type
+     */
     public function setFlashMessage($message)
     {
         return $this->get('session')

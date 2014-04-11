@@ -32,6 +32,8 @@ class VoteController extends Controller
         $alreadyVoted = $voteManager->findVoteByUserAndFeedback($user->getId(), $feedabck_id);
         $countAlreadyVoted = count($alreadyVoted);
         
+        
+        
         if($userPoints !== null && ($userPoints >= $points) && $countAlreadyVoted == 0)
         {
             $feedbackManager = $this->get('oxind_feedback.manager.feedback');
@@ -40,8 +42,22 @@ class VoteController extends Controller
             $user->setPoints($remainingPoints);
             $vote = $voteManager->createVote($user, $feedback, $points);
             $voteManager->saveVote($vote);
+            
+            $this->setFlashMessage('flash_message.vote_sent');
         }
 
         return $this->redirect($request->headers->get('referer'));
+    }
+    
+    /**
+     * 
+     * @param integer $message
+     * @return type
+     */
+    public function setFlashMessage($message)
+    {
+        return $this->get('session')
+                ->getFlashBag()
+                ->set('success', $this->get('translator')->trans($message, array(), 'feedback'));
     }
 }

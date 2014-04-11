@@ -1,2 +1,4 @@
 flash_message:
     feedback_created: Feedback created succesfully
+    vote_sent: Voted !
+    already_voted: You Already voted.
