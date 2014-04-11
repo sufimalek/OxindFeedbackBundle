@@ -44,6 +44,9 @@ class VoteController extends Controller
             $voteManager->saveVote($vote);
             
             $this->setFlashMessage('flash_message.vote_sent');
+        }  else
+        {
+            $this->setFlashMessage('flash_message.vote_sent');
         }
 
         return $this->redirect($request->headers->get('referer'));
