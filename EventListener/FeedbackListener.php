@@ -2,10 +2,20 @@
 
 namespace Oxind\FeedbackBundle\EventListener;
 
+/*
+ * This file is part of the OxindFeedbackBundle package.
+ *
+ * (c) OxindFeedbackBundle <https://github.com/Oxind/OxindFeedbackBundle/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Oxind\FeedbackBundle\Entity\Feedback;
 use Oxind\FeedbackBundle\Model\FeedbackInterface;
 use Oxind\FeedbackBundle\Model\TimelineInterface;
+
 /**
  * Description of FeedbackListener
  *
@@ -13,6 +23,7 @@ use Oxind\FeedbackBundle\Model\TimelineInterface;
  */
 class FeedbackListener
 {
+
     protected $container;
 
     /**
@@ -24,16 +35,24 @@ class FeedbackListener
         $this->container = $container;
     }
 
+    /**
+     * Function to update 
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
+     */
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        
-        if($entity instanceof Feedback)
+
+        if ($entity instanceof Feedback)
         {
             $this->handleFeedbackPrePersist($entity);
         }
     }
-    
+
+    /**
+     * Function to update after post 
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
+     */
     public function postUpdate(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
@@ -49,7 +68,11 @@ class FeedbackListener
             }
         }
     }
-    
+
+    /**
+     * Function to pre update
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
+     */
     public function preUpdate(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
@@ -58,7 +81,12 @@ class FeedbackListener
             $entity->setUpdatedAt(new \DateTime());
         }
     }
-    
+
+    /**
+     * Function to add feedback to timeline
+     * @param \Oxind\FeedbackBundle\Model\FeedbackInterface $feedback
+     * @param \Oxind\FeedbackBundle\Model\TimelineInterface $timeline
+     */
     public function addFeedbackToTimeline(FeedbackInterface $feedback, TimelineInterface $timeline)
     {
         $time = new \DateTime();
@@ -68,6 +96,11 @@ class FeedbackListener
         $feedback->addFeedbackDisplay($feedbackDisplay);
     }
 
+    /**
+     * Function to set end date in timeline
+     * @param \Oxind\FeedbackBundle\Model\FeedbackInterface $feedback
+     * @param \Oxind\FeedbackBundle\Model\TimelineInterface $timeline
+     */
     public function setFeedbackEndDateInTimline(FeedbackInterface $feedback, TimelineInterface $timeline)
     {
         $feedbackDisplays = $feedback->getFeedbackDisplays();
@@ -82,35 +115,38 @@ class FeedbackListener
         }
     }
 
+    /**
+     * Function to handle feedback
+     * @param \Oxind\FeedbackBundle\Model\FeedbackInterface $entity
+     */
     public function handleFeedbackPrePersist(FeedbackInterface $entity)
-    {  
+    {
         $time = new \DateTime();
-        ($entity->getCreatedAt() == NULL)? $entity->setCreatedAt($time) : null;
+        ($entity->getCreatedAt() == NULL) ? $entity->setCreatedAt($time) : null;
         $entity->setUpdatedAt($time);
         $status = $entity->getStatus();
-        
-        if($status === null)
+
+        if ($status === null)
         {
             $status = $entity->getFeedbackType()->getDefaultStatus();
             $entity->setStatus($status);
         }
-        
+
         $timelineStartStatus = $entity->getFeedbackType()->getTimelineStartStatus();
         $timelineEndStatus = $entity->getFeedbackType()->getTimelineEndStatus();
-        
+
         $timeManager = $this->container->get('oxind_feedback.manager.timeline.default');
-        
+
         $timeLine = $timeManager->findTimelineByTitle('main');
-        
-        if($timelineStartStatus === $status 
-           && count($entity->getFeedbackDisplays()) === 0 )
+
+        if ($timelineStartStatus === $status && count($entity->getFeedbackDisplays()) === 0)
         {
             $this->addFeedbackToTimeline($entity, $timeLine);
         }
-        if($timelineEndStatus === $status 
-           && count($entity->getFeedbackDisplays()) !== 0     )
+        if ($timelineEndStatus === $status && count($entity->getFeedbackDisplays()) !== 0)
         {
             $this->setFeedbackEndDateInTimline($entity, $timeLine);
         }
     }
+
 }

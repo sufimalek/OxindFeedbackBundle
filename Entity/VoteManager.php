@@ -2,6 +2,15 @@
 
 namespace Oxind\FeedbackBundle\Entity;
 
+/*
+ * This file is part of the OxindFeedbackBundle package.
+ *
+ * (c) OxindFeedbackBundle <https://github.com/Oxind/OxindFeedbackBundle/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use Oxind\FeedbackBundle\Model\Manager\VoteManager as BaseVoteManager;
 use Oxind\FeedbackBundle\Model\FeedbackInterface;
 use Oxind\FeedbackBundle\Model\VoteInterface;
@@ -14,6 +23,7 @@ use Doctrine\ORM\EntityManager;
  */
 class VoteManager extends BaseVoteManager
 {
+
     /**
      * @var EntityManager
      */
@@ -43,7 +53,7 @@ class VoteManager extends BaseVoteManager
         $metadata = $em->getClassMetadata($class);
         $this->class = $metadata->name;
     }
-    
+
     /**
      * 
      * @param \Oxind\FeedbackBundle\Model\VoteInterface $vote
@@ -63,7 +73,7 @@ class VoteManager extends BaseVoteManager
     {
         return $this->repository->findOneBy($criteria);
     }
-    
+
     /**
      * 
      * @param array $criteria
@@ -80,29 +90,33 @@ class VoteManager extends BaseVoteManager
      */
     public function findVotesByFeedback(FeedbackInterface $feedback)
     {
-        return $this->findVotesBy( array( 'feedback' => $feedback->getId() ));
+        return $this->findVotesBy(array('feedback' => $feedback->getId()));
     }
-    
+
     /**
      * Returns the fully qualified vote class name
      *
      * @return string
-     **/
+     * */
     public function getClass()
     {
         return $this->class;
     }
-    
+
+    /**
+     * Function to get Vote total points
+     * @return type
+     */
     public function getVoteTotalPoints()
     {
-        $qb =$this->repository->createQueryBuilder('v')
+        $qb = $this->repository->createQueryBuilder('v')
                 ->select('v,SUM(v.points) as totalpoint')
                 ->groupBy('v.feedback');
-        
+
         $resultset = $qb->getQuery()->getResult();
         $arrResult = array();
-        
-        foreach($resultset as $result)
+
+        foreach ($resultset as $result)
         {
             $vote = $result[0];
             $feedback = $vote->getFeedback();
@@ -110,16 +124,20 @@ class VoteManager extends BaseVoteManager
             {
                 $arrResult[$feedback->getId()] = $result['totalpoint'];
             }
-        } 
-        
+        }
+
         return $arrResult;
     }
-    
+
+    /**
+     * Function to credit vote points 
+     * @param \Oxind\FeedbackBundle\Model\FeedbackInterface $feedback
+     */
     public function creditVotePointsBack(FeedbackInterface $feedback)
     {
         $votes = $this->findVotesByFeedback($feedback);
-        
-        foreach($votes as $vote)
+
+        foreach ($votes as $vote)
         {
             $votedPoints = $vote->getPoints();
             $userPoint = $vote->getUser()->getPoints();
@@ -129,7 +147,13 @@ class VoteManager extends BaseVoteManager
         }
         $this->em->flush();
     }
-    
+
+    /**
+     * Function to find vote by user and feedback
+     * @param type $user_id
+     * @param type $feedback_id
+     * @return type
+     */
     public function findVoteByUserAndFeedback($user_id, $feedback_id)
     {
         $repo = $this->em->getRepository($this->class);
@@ -140,7 +164,8 @@ class VoteManager extends BaseVoteManager
                 ->setParameter('user_id', $user_id)
                 ->getQuery()
                 ->getResult();
-        
+
         return $qb;
     }
+
 }

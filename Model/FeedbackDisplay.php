@@ -2,19 +2,30 @@
 
 namespace Oxind\FeedbackBundle\Model;
 
+/*
+ * This file is part of the OxindFeedbackBundle package.
+ *
+ * (c) OxindFeedbackBundle <https://github.com/Oxind/OxindFeedbackBundle/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 class FeedbackDisplay implements FeedbackDisplayInterface
 {
+
     /**
      *
      * @var integer 
      */
     protected $id;
+
     /**
      *
      * @var \DateTime
      */
     protected $start_date;
-    
+
     /**
      *
      * @var \DateTime
@@ -55,7 +66,7 @@ class FeedbackDisplay implements FeedbackDisplayInterface
     {
         return $this->id;
     }
-    
+
     /**
      * Set the value of start_date.
      *
@@ -147,4 +158,5 @@ class FeedbackDisplay implements FeedbackDisplayInterface
     {
         return $this->timeline;
     }
+
 }

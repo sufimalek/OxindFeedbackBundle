@@ -2,6 +2,15 @@
 
 namespace Oxind\FeedbackBundle\Model\Manager;
 
+/*
+ * This file is part of the OxindFeedbackBundle package.
+ *
+ * (c) OxindFeedbackBundle <https://github.com/Oxind/OxindFeedbackBundle/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use Oxind\FeedbackBundle\Model\TimelineInterface;
 
 /**
@@ -11,6 +20,7 @@ use Oxind\FeedbackBundle\Model\TimelineInterface;
  */
 abstract class TimelineManager implements TimelineManagerInterface
 {
+
     /**
      * 
      * @param \Oxind\FeedbackBundle\Model\TimelineInterface $timeline
@@ -31,7 +41,7 @@ abstract class TimelineManager implements TimelineManagerInterface
      */
     public function findTimelineById($id)
     {
-         return $this->findTimelineBy(array('id' => $id));
+        return $this->findTimelineBy(array('id' => $id));
     }
 
     /**
@@ -41,7 +51,8 @@ abstract class TimelineManager implements TimelineManagerInterface
      */
     public function saveTimeline(TimelineInterface $timeline)
     {
-        if (null === $timeline->getTitle()) {
+        if (null === $timeline->getTitle())
+        {
             throw new \InvalidArgumentException('Feedback not Setted');
         }
 
@@ -55,5 +66,4 @@ abstract class TimelineManager implements TimelineManagerInterface
      * @param TimelineInterface $timeline
      */
     abstract protected function doSaveTimeline(TimelineInterface $timeline);
-    
 }

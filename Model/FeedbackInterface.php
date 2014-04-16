@@ -2,6 +2,15 @@
 
 namespace Oxind\FeedbackBundle\Model;
 
+/*
+ * This file is part of the OxindFeedbackBundle package.
+ *
+ * (c) OxindFeedbackBundle <https://github.com/Oxind/OxindFeedbackBundle/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -10,6 +19,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 interface FeedbackInterface
 {
+
     /**
      * Set the value of id.
      *
@@ -39,6 +49,7 @@ interface FeedbackInterface
      * @return string
      */
     public function getTitle();
+
     /**
      * Set the value of content.
      *
@@ -113,7 +124,7 @@ interface FeedbackInterface
      * @return \DateTime
      */
     public function getDeletedAt();
-    
+
     /**
      * Add FeedbackDisplay entity to collection (one to many).
      *
@@ -173,5 +184,4 @@ interface FeedbackInterface
      * @return \Symfony\Component\Security\Core\User\UserInterface
      */
     public function getUser();
-
 }

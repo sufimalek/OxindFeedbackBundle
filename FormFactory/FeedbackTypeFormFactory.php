@@ -1,5 +1,15 @@
 <?php
+
 namespace Oxind\FeedbackBundle\FormFactory;
+
+/*
+ * This file is part of the OxindFeedbackBundle package.
+ *
+ * (c) OxindFeedbackBundle <https://github.com/Oxind/OxindFeedbackBundle/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 use Symfony\Component\Form\FormFactoryInterface;
 
@@ -8,10 +18,9 @@ use Symfony\Component\Form\FormFactoryInterface;
  *
  * @author Bhavin Jagad <bjagd@oxind.com>
  */
-
-
 class FeedbackTypeFormFactory implements FeedbackTypeFormFactoryInterface
 {
+
     /**
      * @var FormFactoryInterface
      */
@@ -37,8 +46,8 @@ class FeedbackTypeFormFactory implements FeedbackTypeFormFactoryInterface
     public function __construct(FormFactoryInterface $formFactory, $type, $name)
     {
         $this->formFactory = $formFactory;
-        $this->type        = $type;
-        $this->name        = $name;
+        $this->type = $type;
+        $this->name = $name;
     }
 
     /**
@@ -48,10 +57,10 @@ class FeedbackTypeFormFactory implements FeedbackTypeFormFactoryInterface
      */
     public function createForm()
     {
-        $builder = $this->formFactory->createNamedBuilder($this->name, $this->type, null,
-                array( 'validation_groups' => array('CreateFeedbackType') )
-                );
+        $builder = $this->formFactory->createNamedBuilder($this->name, $this->type, null, array('validation_groups' => array('CreateFeedbackType'))
+        );
 
         return $builder->getForm();
     }
+
 }

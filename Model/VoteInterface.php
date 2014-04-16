@@ -2,11 +2,20 @@
 
 namespace Oxind\FeedbackBundle\Model;
 
+/*
+ * This file is part of the OxindFeedbackBundle package.
+ *
+ * (c) OxindFeedbackBundle <https://github.com/Oxind/OxindFeedbackBundle/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use Symfony\Component\Security\Core\User\UserInterface;
 
 interface VoteInterface
 {
-    
+
     /**
      * Set the value of points.
      *
@@ -28,7 +37,7 @@ interface VoteInterface
      * @param FeedbackInterface $feedback
      * @return VoteInterface
      */
-    public function setFeedback(FeedbackInterface $feedback );
+    public function setFeedback(FeedbackInterface $feedback);
 
     /**
      * Get Feedback entity (many to one).
@@ -51,5 +60,4 @@ interface VoteInterface
      * @return \Symfony\Component\Security\Core\User\UserInterface
      */
     public function getUser();
-    
 }

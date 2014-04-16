@@ -2,6 +2,15 @@
 
 namespace Oxind\FeedbackBundle\Model\Manager;
 
+/*
+ * This file is part of the OxindFeedbackBundle package.
+ *
+ * (c) OxindFeedbackBundle <https://github.com/Oxind/OxindFeedbackBundle/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use Oxind\FeedbackBundle\Model\FeedbackTypeInterface;
 
 /**
@@ -46,7 +55,8 @@ abstract class FeedbackTypeManager implements FeedbackTypeManagerInterface
      */
     public function saveFeedbackType(FeedbackTypeInterface $feedbackType)
     {
-        if (null === $feedbackType->getName()) {
+        if (null === $feedbackType->getName())
+        {
             throw new \InvalidArgumentException('In FeedbackType name must not null');
         }
 
@@ -60,5 +70,4 @@ abstract class FeedbackTypeManager implements FeedbackTypeManagerInterface
      * @param FeedbackInterface $feedback
      */
     abstract protected function doSaveFeedbackType(FeedbackTypeInterface $feedbackType);
-
 }
