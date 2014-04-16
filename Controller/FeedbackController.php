@@ -129,8 +129,7 @@ class FeedbackController extends Controller
                 'title' => $ssSearch,
                     ), $ssPage, $resultsPerPage);
 
-            $totalCount = $feedbacks->count();
-            echo $totalCount;
+            $totalCount = $feedbacks->count();            
             $pageCount = ceil($totalCount / $resultsPerPage);
             return $this->getFeedbackListResponce($feedbacks, $snIdFeedbackType, $pageCount);
         } else
