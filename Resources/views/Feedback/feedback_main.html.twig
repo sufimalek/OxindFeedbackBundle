@@ -2,7 +2,7 @@
 
 <div>
     {% block feedback_filter %}
-        <div>
+        <div class="formfilter">
                 {% render (controller('OxindFeedbackBundle:Feedback:feedbackfilter' ,{'feedbacktype_id' : feedbacktype.getId() })) %}
         </div>
     {% endblock %}
