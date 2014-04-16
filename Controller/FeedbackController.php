@@ -1,5 +1,4 @@
 <?php
-
 namespace Oxind\FeedbackBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,7 +19,7 @@ class FeedbackController extends Controller
 {
 
     const SESSION_FEEDBACKTYPE = 'oxind_feedback.feedbactype';
-
+    
     /**
      * @Route("/create/{feedbacktype_id}", name="oxind_feedback_create")
      * @Method({"GET"})
@@ -78,11 +77,11 @@ class FeedbackController extends Controller
     public function listFeedbackAction($feedbacktype_id)
     {
         $feedbackTypeManager = $this->get('oxind_feedback.manager.feedbacktype');
-
+        
+        $resultsPerPage = 5;
+        $pageNo = 0;
+        
         $feedbackType = $feedbackTypeManager->findFeedbackTypeById($feedbacktype_id);
-
-        $obFormFilter = $this->createForm(new FeedbackFilter($feedbackType), null, array(
-            'action' => $this->generateUrl('oxind_feedback_search')));
 
         if ($feedbackType === null)
         {
@@ -90,9 +89,11 @@ class FeedbackController extends Controller
         }
 
         $feedbackManager = $this->get('oxind_feedback.manager.feedback');
-        $feedbacks = $feedbackManager->findFeedbacksByFeedbackType($feedbackType);
+        $findFeedback = $feedbackManager->fingFeedbacksForPage($feedbackType,$pageNo,$resultsPerPage);
+        $totalFeedbacks = $findFeedback->count();
+        $pageCount = ceil($totalFeedbacks/$resultsPerPage);
 
-        return $this->getFeedbackListResponce($feedbacks, $feedbacktype_id, $obFormFilter->createView());
+        return $this->getFeedbackListResponce($findFeedback, $feedbacktype_id,$pageCount);
     }
 
     /**
@@ -101,7 +102,8 @@ class FeedbackController extends Controller
      */
     public function getSearchAction(Request $request)
     {
-        $ssSearchCriteria = $request->query->get('q');
+        $resultsPerPage = 5;//$this->container->getParameter('oxind_feedback.result_perpage');
+        // Get pagenumber
         $asFormData = $request->get('feecback_filter');
         $snIdFeedbackType = $request->query->get('feedbacktype_id');
         $obFeedbackManager = $this->get('oxind_feedback.manager.feedback');
@@ -109,33 +111,42 @@ class FeedbackController extends Controller
         {
             $snIdFeedbackType = $asFormData['feedbacktype_id'];
             $ssStatus = $asFormData['statuses'];
-            $feedbacks = $obFeedbackManager->findFeedbackByQuery(array('feedbacktype_id' => $snIdFeedbackType, 'statuses' => $ssStatus));
-            return $this->getFeedbackListResponce($feedbacks, $snIdFeedbackType);
-        } else if ($ssSearchCriteria)
-        {
+            $ssSearch = $asFormData['search'];
+            $ssPage = $asFormData['page'];
+            $feedbacks = $obFeedbackManager->findFeedbackByQuery(
+                    array('feedbacktype_id' => $snIdFeedbackType,
+                        'statuses' => $ssStatus,
+                        'title'=>$ssSearch,
+                        ),
+                        $ssPage,5
+                    );
             
-            $feedbacks = $obFeedbackManager->findFeedbackByQuery(array('title' => $ssSearchCriteria));
-            return $this->getFeedbackListResponce($feedbacks, $snIdFeedbackType);
-        } else
+            $totalCount =$feedbacks->count();
+            $pageCount = ceil($totalCount/$resultsPerPage);
+            return $this->getFeedbackListResponce($feedbacks, $snIdFeedbackType,$pageCount);
+        } 
+        else
         {
             return $this->forward('OxindFeedbackBundle:Feedback:listFeedback', array('feedbacktype_id' => $snIdFeedbackType));
         }
     }
 
     /**
-     * funtion to render list template
-     * @param type $feedbacks
-     * @param type $feedbacktype_id
-     * @return type
+     * 
+     * @param array $feedbacks
+     * @param integer $feedbacktype_id
+     * @param integer $pageCount
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function getFeedbackListResponce($feedbacks, $feedbacktype_id)
+    private function getFeedbackListResponce($feedbacks, $feedbacktype_id,$pageCount)
     {
         $voteManager = $this->get('oxind_feedback.manager.vote');
         $totalVote = $voteManager->getVoteTotalPoints();
         return $this->render('OxindFeedbackBundle:Feedback:list.html.twig', array(
                     'feedbacks' => $feedbacks,
                     'total_vote' => $totalVote,
-                    'feedbacktype_id' => $feedbacktype_id
+                    'feedbacktype_id' => $feedbacktype_id,
+                    'page_count' => $pageCount,
         ));
     }
 
@@ -166,7 +177,9 @@ class FeedbackController extends Controller
             if ($obFeedbackType != null && !empty($obFeedbackType))
             {
                 foreach ($obFeedbackType->getDisplayableStatuses() as $ssValue)
+                {
                     $asFeedbackTypeStatus[strtolower($ssValue)] = ucfirst($ssValue);
+                }
             }
         }
 
@@ -203,5 +216,5 @@ class FeedbackController extends Controller
                 ->getFlashBag()
                 ->set('success', $this->get('translator')->trans($message, array(), 'feedback'));
     }
-    
+
 }

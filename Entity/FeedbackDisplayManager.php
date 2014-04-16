@@ -12,10 +12,9 @@ use Doctrine\ORM\EntityManager;
  *
  * @author Malek Sufiyan <smalek@oxind.com>
  */
-
 class FeedbackDisplayManager extends BaseFeedbackDisplayManager
 {
-    
+
     /**
      * @var EntityManager
      */
@@ -45,7 +44,17 @@ class FeedbackDisplayManager extends BaseFeedbackDisplayManager
         $metadata = $em->getClassMetadata($class);
         $this->class = $metadata->name;
     }
-    
+
+    /**
+     * Returns the fully qualified feedbackDisplay class name
+     *
+     * @return string
+     * */
+    public function getClass()
+    {
+        return $this->class;
+    }
+
     /**
      * 
      * @param \Oxind\FeedbackBundle\Model\FeedbackDisplayInterface $feedbackDisplay
@@ -61,19 +70,19 @@ class FeedbackDisplayManager extends BaseFeedbackDisplayManager
      * @param array $criteria
      * @return type
      */
-    public function findFeedbackDisplayBy(array $criteria)
+    public function findFeedbacksDisplayBy(array $criteria)
     {
-        return $this->repository->findOneBy($criteria);
+        return $this->repository->findBy($criteria);
     }
 
     /**
-     * Returns the fully qualified feedbackDisplay class name
-     *
-     * @return string
-     **/
-    public function getClass()
+     * 
+     * @param array $criteria
+     * @return type
+     */
+    public function findFeedbackDisplayBy(array $criteria)
     {
-        return $this->class;
+        return $this->repository->findOneBy($criteria);
     }
 
     /**
@@ -81,9 +90,20 @@ class FeedbackDisplayManager extends BaseFeedbackDisplayManager
      * @param \Oxind\FeedbackBundle\Model\TimelineInterface $timeline
      * @param \Oxind\FeedbackBundle\Model\FeedbackDisplayInterface $feedbackDisplay
      */
-    public function findFeedbackDisplayByTimeline(TimelineInterface $timeline, FeedbackDisplayInterface $feedbackDisplay)
+    public function findFeedbackDisplayByTimeline(TimelineInterface $timeline)
     {
-        
+        return $this->findFeedbacksDisplayBy(array('timeline' => $timeline));
     }
 
+    public function findFeedbackDisplayByTimelineSorted(TimelineInterface $timeline)
+    {
+        $qb = $this->repository->createQueryBuilder('fd')
+                ->select('fd')
+                ->where('fd.timeline = :timeline')
+                ->orderBy('fd.start_date')
+                ->setParameter('timeline', $timeline);
+                
+        
+        return $qb->getQuery()->getResult();
+    }
 }

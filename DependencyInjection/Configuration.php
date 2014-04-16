@@ -67,6 +67,8 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('feedback')->cannotBeEmpty()->defaultValue('oxind_feedback.manager.feedback.default')->end()
                                 ->scalarNode('feedbacktype')->cannotBeEmpty()->defaultValue('oxind_feedback.manager.feedbacktype.default')->end()
                                 ->scalarNode('vote')->cannotBeEmpty()->defaultValue('oxind_feedback.manager.vote.default')->end()
+                                ->scalarNode('timeline')->cannotBeEmpty()->defaultValue('oxind_feedback.manager.timeline.default')->end()
+                                ->scalarNode('feedbackdisplay')->cannotBeEmpty()->defaultValue('oxind_feedback.manager.feedbackdisplay.default')->end()
                             ->end()
                         ->end()
                         ->arrayNode('form_factory')->addDefaultsIfNotSet()

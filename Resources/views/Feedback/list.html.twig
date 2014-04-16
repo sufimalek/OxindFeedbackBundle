@@ -7,6 +7,7 @@
 {% endfor %}
 
 <div id="update_listing">
+<input id="pagecount" type="hidden" data-totalpage="{{ page_count }}"/>
 <div class="feedbacklisting" id="feedback-list-container" >
     
     {% set condition = false %}
@@ -18,14 +19,15 @@
     {% for feedback in feedbacks if feedback.isDisplayable() %}
     
     <div class="feedback-listing">
-        <div class="totalvotecount" ><strong>{{ total_vote[feedback.getId()]|default('0') }}</strong><span>votes</span></div>
-
-        {{ include ('OxindFeedbackBundle:Feedback:feedback_title.html.twig',{'title' :feedback.getTitle()} )  }}
-        {{ include ('OxindFeedbackBundle:Feedback:feedback_content.html.twig',{'content' :feedback.getContent() })  }}
-
-
         {% set feedback_type = feedback.getFeedbackType() %}
         
+        {% if feedback_type.getVotable() %}
+            <div class="totalvotecount" ><strong>{{ total_vote[feedback.getId()]|default('0') }}</strong><span>votes</span></div>
+        {% endif %}
+        
+        {{ include ('OxindFeedbackBundle:Feedback:feedback_title.html.twig',{'title' :feedback.getTitle()} )  }}
+        {{ include ('OxindFeedbackBundle:Feedback:feedback_content.html.twig',{'content' :feedback.getContent() })  }}
+    
         {% if not condition %}
             {% set condition = not feedback.hasUserVoted(app.user) %}
         {% endif %}
@@ -49,8 +51,8 @@
         
         {% endif %}
         
-        
     </div>
+    
     {% endfor %}
 </div>
 </div>

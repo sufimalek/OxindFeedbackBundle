@@ -36,9 +36,9 @@ class FeedbackFilter extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-
         $builder->setAttributes(array('id' => 'feecback_filter'));
+        $builder->add('search','text',array('required' =>false));
+        $builder->add('page','hidden',array('attr'=>array('value'=>0)));
         $builder->add('statuses', 'choice', array(
             'empty_value' => '-- Select a status --',
             'choices' => $this->getFeedbackStatusList(),
@@ -66,7 +66,9 @@ class FeedbackFilter extends AbstractType
         if ($this->feedbackType != null && !empty($this->feedbackType))
         {
             foreach ($this->feedbackType->getDisplayableStatuses() as $ssValue)
+            {
                 $asStatuses[strtolower($ssValue)] = ucfirst($ssValue);
+            }
         }
 
         return $asStatuses;

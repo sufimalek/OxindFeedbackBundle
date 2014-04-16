@@ -39,10 +39,10 @@ interface FeedbackDisplayManagerInterface
     /**
      * Finds a feedbackDisplay by Timeline.
      *
-     * @param  array $criteria
+     * @param  TimelineInterface $timeline
      * @return FeedbackDisplayInterface
      */
-    public function findFeedbackDisplayByTimeline(TimelineInterface $timeline, FeedbackDisplayInterface $feedbackDisplay);
+    public function findFeedbackDisplayByTimeline(TimelineInterface $timeline);
     
     /**
      * Finds a feedbackDisplay by specified criteria.

@@ -1,0 +1,17 @@
+{% block feedback_main %}
+
+<div>
+    {% block feedback_filter %}
+        <div>
+                {% render (controller('OxindFeedbackBundle:Feedback:feedbackfilter' ,{'feedbacktype_id' : feedbacktype.getId() })) %}
+        </div>
+    {% endblock %}
+    {% block feedback_list %}
+        <div>
+                {{ render(controller('OxindFeedbackBundle:Feedback:listFeedback', {'feedbacktype_id' : feedbacktype.getId() })) }}                    
+        </div>
+    {% endblock %}
+</div>
+
+{% endblock %}
+

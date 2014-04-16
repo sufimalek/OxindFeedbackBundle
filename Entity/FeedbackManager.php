@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityManager;
 use Oxind\FeedbackBundle\Model\Manager\FeedbackManager as BaseFeedbackManager;
 use Oxind\FeedbackBundle\Model\FeedbackInterface;
 use Oxind\FeedbackBundle\Model\FeedbackTypeInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * Description of FeedbackManager
@@ -70,39 +71,35 @@ class FeedbackManager extends BaseFeedbackManager
      * @param array $asParams
      * @return array
      */
-    public function findFeedbackByQuery(array $asParams)
+    public function findFeedbackByQuery(array $asParams,$pageNumber,$resultsPerPage)
     {
+        $position = ($pageNumber * $resultsPerPage);
         $repo = $this->em->getRepository($this->class);
         $qb = $repo->createQueryBuilder('f');
+        
         if ($asParams != '' && sizeof($asParams))
         {
             if (isset($asParams['feedbacktype_id']))
+            {
                 $qb->andWhere('f.feedbackType = :feedbackType')->setParameter('feedbackType', $asParams['feedbacktype_id']);
+            }
 
             if (isset($asParams['statuses']) && $asParams['statuses'] != '')
-                $qb->andWhere('f.status = :status')->setParameter('status', $asParams['statuses']);
-
-            if (isset($asParams['title']))
-                $qb->andWhere('f.title LIKE :query')->setParameter('query', '%' . $asParams['title'] . '%');
-        }
-        return $qb->getQuery()->getResult();
-    }
-
-    /**
-     * Function to find data by feedback id
-     * @param array $feedbacks
-     * @return array
-     */
-    protected function findByFeedbackId(array $feedbacks)
-    {
-        foreach ($feedbacks as $key => $feedback)
-        {
-            if ($feedback->getFeedbackType()->getId() != $feedbacktype_id)
             {
-                unset($feedbacks[$key]);
+                $qb->andWhere('f.status = :status')->setParameter('status', $asParams['statuses']);
+            }
+
+            if (isset($asParams['title']) && trim($asParams['title']) !== '')
+            {
+                $qb->andWhere('f.title LIKE :query')->setParameter('query', '%' . $asParams['title'] . '%');
             }
         }
-        return $feedbacks;
+        $qb->addOrderBy('f.created_at' , 'DESC')
+           ->setFirstResult($position)
+           ->setMaxResults($resultsPerPage);
+        
+        $paginator = new Paginator($qb, $fetchJoinCollection = true);
+       return $paginator;
     }
 
     /**
@@ -163,5 +160,20 @@ class FeedbackManager extends BaseFeedbackManager
     {
         return $this->findFeedbacksBy(array('feedbackType' => $feedbacktype));
     }
-
+    
+    public function fingFeedbacksForPage(FeedbackTypeInterface $feedbacktype, $pageNumber, $resultPerPage = 10)
+    {
+       $position = ($pageNumber * $resultPerPage);
+       
+       $query = $this->em->createQuery(
+               'SELECT f'
+               . ' FROM '.$this->getClass().' f'
+               . ' WHERE f.feedbackType = '.$feedbacktype->getId()
+               . ' ORDER BY f.created_at DESC'
+               )
+               ->setFirstResult($position)
+               ->setMaxResults($resultPerPage);
+       $paginator = new Paginator($query, $fetchJoinCollection = true);
+       return $paginator;
+    }
 }

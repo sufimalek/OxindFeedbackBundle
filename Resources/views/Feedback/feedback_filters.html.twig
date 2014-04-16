@@ -9,37 +9,18 @@
 <div class="loader" id="loader" style="display: none;"> 
     <img src="{{ asset('bundles/oxindfeedback/images/loader.gif') }}" />
 </div>
+<a id="next" href="">Next</a>
+<a id="prev" href="">Prev</a>
 <script type="text/javascript">
     
 $(document).ready(function() {
-    $('#feecback_filter_feedbacktypes').change(function() {
-        
-            // add loading image to div
-        $('#loader').show();
-        var val = $(this).val();
-        if (val != '')
-        {
-            $.ajax({
-                type: "POST",
-                url: "{{ path('oxind_feedback_status_list') }}?id=" + val,                
-                success: function(data) {
-                    // Remove current options
-                    $('#feecback_filter_statuses').html('');
-                    $('#feecback_filter_statuses').append('<option value="">--- Select status ---</option>');
-                    $.each(data, function(k, v) {
-                        $('#feecback_filter_statuses').append('<option value="' + k + '">' + v + '</option>');
-                        $('#loader').hide();
-                    });
-                }
-            });
-
-            return false;
-        }
-    });
-
-   $('#feecback_filter_statuses').change(function() {
+ 
+    var pageCount = $("#pagecount").data('totalpage');
+   
+    function searchAjax() {
         var url = "{{ path('oxind_feedback_search') }}";
         var data= $("#feecback_filter").serialize();
+        var searchText = $("#feecback_filter_search").attr("value");
         $('#loader').show();
         $.ajax({
             type: "POST",
@@ -47,14 +28,99 @@ $(document).ready(function() {
             data: data,
             dataType: "html",
             success: function(data) {
+                
                 $("#update_listing").html(data);
                 $('#loader').hide();
+                var pageCount = $("#pagecount").data('totalpage');
+   
+                if( pageCount > 1 )
+                {
+                    $("#next").show();
+                    $("#prev").show();
+                        var currentPage = $("#feecback_filter_page").attr('value');
+                       if(currentPage == 0)
+                       {
+                           $("#prev").hide();
+                       }
+                }
+                else
+                {
+                    $("#next").hide();
+                    $("#prev").hide();
+                }
             }
         });
 
         return false;
-
+    }
+    
+   $('#feecback_filter_statuses').change(function(){ 
+   $("#feecback_filter_page").attr('value',0);
+   searchAjax();
+    
     });
+   
+   $('#feecback_filter_search').on('input',function(){ 
+   $("#feecback_filter_page").attr('value',0);
+   searchAjax();
+   
+    });
+   
+   
+   if(pageCount > 0 )
+   {
+       var currentPage = $("#feecback_filter_page").attr('value');
+       if(currentPage == 0)
+       {
+           $("#prev").hide();
+       }
+   $("#next").click(function(e){
+      e.preventDefault(); 
+      pageCount = $("#pagecount").data('totalpage');
+      var pageValue = $("#feecback_filter_page").attr('value');
+      var pageNo = parseInt(pageValue);
+      pageNo++;
+      $("#feecback_filter_page").attr('value',pageNo);
+      if(pageNo == pageCount-1)
+      {
+          $(this).hide();
+      }
+      else
+      {
+          $("#prev").show();
+      }
+      searchAjax();
+   });
+   
+   $("#prev").click(function(e){
+      e.preventDefault(); 
+      pageCount = $("#pagecount").data('totalpage');
+      var pageValue = $("#feecback_filter_page").attr('value');
+                   var pageNo = parseInt(pageValue);
 
+                   if (pageNo > 0)
+                   {
+                       pageNo--;
+                   }
+                   if (pageNo == 0)
+                   {
+                       $(this).hide();
+                   }
+                   else
+                   {
+                       $("#next").show();
+                   }
+
+                   $("#feecback_filter_page").attr('value', pageNo);
+
+                   searchAjax();
+               });
+    }
+    else
+    {
+        $("#next").hide();
+        $("#prev").hide();
+    }
+   
 });
 </script>
