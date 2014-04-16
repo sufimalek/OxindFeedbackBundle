@@ -161,7 +161,14 @@ class FeedbackManager extends BaseFeedbackManager
         return $this->findFeedbacksBy(array('feedbackType' => $feedbacktype));
     }
     
-    public function fingFeedbacksForPage(FeedbackTypeInterface $feedbacktype, $pageNumber, $resultPerPage = 10)
+    /**
+     * Function to find feedbacks for page
+     * @param \Oxind\FeedbackBundle\Model\FeedbackTypeInterface $feedbacktype
+     * @param type $pageNumber
+     * @param type $resultPerPage
+     * @return \Doctrine\ORM\Tools\Pagination\Paginator
+     */
+    public function findFeedbacksForPage(FeedbackTypeInterface $feedbacktype, $pageNumber, $resultPerPage = 10)
     {
        $position = ($pageNumber * $resultPerPage);
        

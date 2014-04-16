@@ -2,6 +2,15 @@
 
 namespace Oxind\FeedbackBundle\Entity;
 
+/*
+ * This file is part of the OxindFeedbackBundle package.
+ *
+ * (c) OxindFeedbackBundle <https://github.com/Oxind/OxindFeedbackBundle/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use Oxind\FeedbackBundle\Model\Manager\FeedbackDisplayManager as BaseFeedbackDisplayManager;
 use Oxind\FeedbackBundle\Model\TimelineInterface;
 use Oxind\FeedbackBundle\Model\FeedbackDisplayInterface;
@@ -56,7 +65,7 @@ class FeedbackDisplayManager extends BaseFeedbackDisplayManager
     }
 
     /**
-     * 
+     * Function to save Feedback Display
      * @param \Oxind\FeedbackBundle\Model\FeedbackDisplayInterface $feedbackDisplay
      */
     protected function doSaveFeedbackDisplay(FeedbackDisplayInterface $feedbackDisplay)
@@ -66,7 +75,7 @@ class FeedbackDisplayManager extends BaseFeedbackDisplayManager
     }
 
     /**
-     * 
+     * Function to find feedbackdiplay 
      * @param array $criteria
      * @return type
      */
@@ -86,7 +95,7 @@ class FeedbackDisplayManager extends BaseFeedbackDisplayManager
     }
 
     /**
-     * 
+     * Function to find feedbacks by timeline
      * @param \Oxind\FeedbackBundle\Model\TimelineInterface $timeline
      * @param \Oxind\FeedbackBundle\Model\FeedbackDisplayInterface $feedbackDisplay
      */
@@ -95,6 +104,11 @@ class FeedbackDisplayManager extends BaseFeedbackDisplayManager
         return $this->findFeedbacksDisplayBy(array('timeline' => $timeline));
     }
 
+    /**
+     * Function to get feedbacks to display on timeline
+     * @param \Oxind\FeedbackBundle\Model\TimelineInterface $timeline
+     * @return type
+     */
     public function findFeedbackDisplayByTimelineSorted(TimelineInterface $timeline)
     {
         $qb = $this->repository->createQueryBuilder('fd')
@@ -102,8 +116,9 @@ class FeedbackDisplayManager extends BaseFeedbackDisplayManager
                 ->where('fd.timeline = :timeline')
                 ->orderBy('fd.start_date')
                 ->setParameter('timeline', $timeline);
-                
-        
+
+
         return $qb->getQuery()->getResult();
     }
+
 }

@@ -50,6 +50,7 @@ class OxindFeedbackExtension extends Extension
         $container->setParameter('oxind_feedback.form.feedback.name', $config['form']['feedback']['name']);
         
         $container->setParameter('oxind_feedback.fixtures', $config['fixtures']);
+        $container->setParameter('oxind_feedback.feedback_per_page', $config['feedback_per_page']);
 
     }
 }

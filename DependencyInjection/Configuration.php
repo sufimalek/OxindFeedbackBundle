@@ -33,6 +33,7 @@ class Configuration implements ConfigurationInterface
                     ->isRequired()
                     ->cannotBeEmpty()
                 ->end()
+                ->scalarNode('feedback_per_page')->defaultValue('10')->end()
                 ->scalarNode('model_manager_name')->defaultNull()->end()
                 ->scalarNode('user_class')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('fixtures')->isRequired()->cannotBeEmpty()->end()

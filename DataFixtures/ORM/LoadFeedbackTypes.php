@@ -94,6 +94,10 @@ class LoadFeedbackTypes extends LoadFeedbackData implements OrderedFixtureInterf
         $obManager->flush();
     }
 
+    /**
+     * Function to get model File name
+     * @return string
+     */
     public function getModelFile()
     {
         return 'feedbacktype';

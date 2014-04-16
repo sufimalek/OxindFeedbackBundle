@@ -40,8 +40,7 @@ class LoadTimelines extends LoadFeedbackData implements OrderedFixtureInterface
     {
         $asFixtures = $this->getModelFixtures();
         $timelines = $asFixtures['timelines'];
-        $class  = $this->container->getParameter('oxind_feedback.model.timeline.class');
-//        var_dump($class);die;
+        $class = $this->container->getParameter('oxind_feedback.model.timeline.class');
         foreach ($timelines as $title => $values)
         {
             $timeline = new $class();
@@ -49,13 +48,18 @@ class LoadTimelines extends LoadFeedbackData implements OrderedFixtureInterface
             $timeline->setDescription($values['description']);
             $obManager->persist($timeline);
         }
-        
+
         $obManager->flush();
     }
 
+    /**
+     * Function to get Model file name
+     * @return string
+     */
     public function getModelFile()
     {
         return 'timeline';
     }
+
 }
 
