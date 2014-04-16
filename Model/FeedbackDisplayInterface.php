@@ -2,9 +2,17 @@
 
 namespace Oxind\FeedbackBundle\Model;
 
+/*
+ * This file is part of the OxindFeedbackBundle package.
+ *
+ * (c) OxindFeedbackBundle <https://github.com/Oxind/OxindFeedbackBundle/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 interface FeedbackDisplayInterface
 {
-    
+
     /**
      * Set the value of id.
      *
@@ -19,7 +27,7 @@ interface FeedbackDisplayInterface
      * @return integer
      */
     public function getId();
-    
+
     /**
      * Set the value of start_date.
      *
@@ -71,7 +79,7 @@ interface FeedbackDisplayInterface
      * @param TimelineInterface $timeline
      * @return 
      */
-    public function setTimeline(TimelineInterface $timeline );
+    public function setTimeline(TimelineInterface $timeline);
 
     /**
      * Get Timeline entity (many to one).
@@ -79,5 +87,4 @@ interface FeedbackDisplayInterface
      * @return TimelineInterface
      */
     public function getTimeline();
-    
 }

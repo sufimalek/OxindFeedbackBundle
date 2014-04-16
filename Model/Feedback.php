@@ -2,11 +2,21 @@
 
 namespace Oxind\FeedbackBundle\Model;
 
+/*
+ * This file is part of the OxindFeedbackBundle package.
+ *
+ * (c) OxindFeedbackBundle <https://github.com/Oxind/OxindFeedbackBundle/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
 abstract class Feedback implements FeedbackInterface
 {
+
     /**
      *
      * @var integer 
@@ -60,9 +70,7 @@ abstract class Feedback implements FeedbackInterface
      * @var ArrayCollection 
      */
     protected $votes;
-
     protected $feedbackType;
-
     protected $user;
 
     public function __construct()
@@ -171,7 +179,7 @@ abstract class Feedback implements FeedbackInterface
      */
     public function setCreatedAt(\DateTime $created_at = null)
     {
-        $this->created_at = ($created_at === null)?new \DateTime():$created_at;
+        $this->created_at = ($created_at === null) ? new \DateTime() : $created_at;
         return $this;
     }
 
@@ -193,7 +201,7 @@ abstract class Feedback implements FeedbackInterface
      */
     public function setUpdatedAt(\DateTime $updated_at = null)
     {
-        $this->updated_at = ($updated_at === null)?new \DateTime():$updated_at;
+        $this->updated_at = ($updated_at === null) ? new \DateTime() : $updated_at;
         return $this;
     }
 
@@ -215,7 +223,7 @@ abstract class Feedback implements FeedbackInterface
      */
     public function setDeletedAt(\DateTime $deleted_at = null)
     {
-        $this->deleted_at = ($deleted_at === null)?new \DateTime():$deleted_at;
+        $this->deleted_at = ($deleted_at === null) ? new \DateTime() : $deleted_at;
         return $this;
     }
 

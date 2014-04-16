@@ -1,12 +1,15 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace Oxind\FeedbackBundle\Form\Type;
+
+/*
+ * This file is part of the OxindFeedbackBundle package.
+ *
+ * (c) OxindFeedbackBundle <https://github.com/Oxind/OxindFeedbackBundle/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,13 +22,18 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class FeedbackTypeType extends AbstractType
 {
+
     protected $feedbackTypeClass;
 
+    /**
+     * Constructor
+     * @param type $feedbackTypeClass
+     */
     public function __construct($feedbackTypeClass)
     {
         $this->feedbackTypeClass = $feedbackTypeClass;
     }
-    
+
     /**
      * 
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
@@ -33,14 +41,18 @@ class FeedbackTypeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('id','hidden');
-        $builder->add('name','hidden');
-        $builder->add('votable','hidden');
-        $builder->add('statuses','hidden');
-        $builder->add('vote_min_point','hidden');
-        $builder->add('vote_max_point','hidden');
+        $builder->add('id', 'hidden');
+        $builder->add('name', 'hidden');
+        $builder->add('votable', 'hidden');
+        $builder->add('statuses', 'hidden');
+        $builder->add('vote_min_point', 'hidden');
+        $builder->add('vote_max_point', 'hidden');
     }
-    
+
+    /**
+     * Function to set default options
+     * @param \Symfony\Component\OptionsResolver\OptionsResolverInterface $resolver
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         parent::setDefaultOptions($resolver);
@@ -49,8 +61,13 @@ class FeedbackTypeType extends AbstractType
         ));
     }
 
+    /**
+     * Function to get name
+     * @return string
+     */
     public function getName()
     {
         return 'oxind_feedback_feedbacktype';
     }
+
 }

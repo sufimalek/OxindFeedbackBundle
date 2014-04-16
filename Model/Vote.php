@@ -2,6 +2,15 @@
 
 namespace Oxind\FeedbackBundle\Model;
 
+/*
+ * This file is part of the OxindFeedbackBundle package.
+ *
+ * (c) OxindFeedbackBundle <https://github.com/Oxind/OxindFeedbackBundle/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use Symfony\Component\Security\Core\User\UserInterface;
 use Oxind\FeedbackBundle\Model\FeedbackInterface;
 
@@ -13,7 +22,7 @@ abstract class Vote implements VoteInterface
      * @var integer
      */
     protected $id;
-    
+
     /**
      *
      * @var type 
@@ -31,7 +40,7 @@ abstract class Vote implements VoteInterface
      * @var UserInterface 
      */
     protected $user;
-    
+
     /**
      * Set the value of id.
      *
@@ -55,7 +64,6 @@ abstract class Vote implements VoteInterface
         return $this->id;
     }
 
-        
     /**
      * 
      * @param integer $points
@@ -93,7 +101,7 @@ abstract class Vote implements VoteInterface
     {
         return $this->feedback;
     }
-    
+
     /**
      * 
      * @param \Symfony\Component\Security\Core\User\UserInterface $user

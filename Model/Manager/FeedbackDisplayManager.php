@@ -2,6 +2,15 @@
 
 namespace Oxind\FeedbackBundle\Model\Manager;
 
+/*
+ * This file is part of the OxindFeedbackBundle package.
+ *
+ * (c) OxindFeedbackBundle <https://github.com/Oxind/OxindFeedbackBundle/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use Oxind\FeedbackBundle\Model\FeedbackInterface;
 use Oxind\FeedbackBundle\Model\TimelineInterface;
 use Oxind\FeedbackBundle\Model\FeedbackDisplayInterface;
@@ -13,6 +22,7 @@ use Oxind\FeedbackBundle\Model\FeedbackDisplayInterface;
  */
 abstract class FeedbackDisplayManager implements FeedbackDisplayManagerInterface
 {
+
     /**
      * 
      * @param \Oxind\FeedbackBundle\Model\FeedbackInterface $feedback
@@ -45,13 +55,14 @@ abstract class FeedbackDisplayManager implements FeedbackDisplayManagerInterface
      */
     public function saveFeedbackDisplay(FeedbackDisplayInterface $feedbackDisplay)
     {
-        if (null === $feedbackDisplay->getFeedback()) {
+        if (null === $feedbackDisplay->getFeedback())
+        {
             throw new \InvalidArgumentException('Feedback not Setted');
         }
 
         $this->doSaveFeedbackDisplay($feedbackDisplay);
     }
-    
+
     /**
      * Performs the persistence of a feedbackDisplay.
      *
@@ -59,5 +70,4 @@ abstract class FeedbackDisplayManager implements FeedbackDisplayManagerInterface
      * @param FeedbackDisplayInterface $feedbackDisplay
      */
     abstract protected function doSaveFeedbackDisplay(FeedbackDisplayInterface $feedbackDisplay);
-
 }

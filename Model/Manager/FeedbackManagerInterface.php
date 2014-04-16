@@ -2,6 +2,15 @@
 
 namespace Oxind\FeedbackBundle\Model\Manager;
 
+/*
+ * This file is part of the OxindFeedbackBundle package.
+ *
+ * (c) OxindFeedbackBundle <https://github.com/Oxind/OxindFeedbackBundle/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use Oxind\FeedbackBundle\Model\FeedbackInterface;
 use Oxind\FeedbackBundle\Model\FeedbackTypeInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -10,16 +19,16 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @author Malek Sufiyan <smalek@oxind.com>
  */
-
 interface FeedbackManagerInterface
 {
+
     /**
      * Returns the class of the Feedback object.
      *
      * @return string
      */
     public function getClass();
-    
+
     /**
      * 
      * @param string $title
@@ -28,8 +37,8 @@ interface FeedbackManagerInterface
      * @param \Symfony\Component\Security\Core\User\UserInterface $user
      * @return \Oxind\FeedbackBundle\Model\Manager\class
      */
-    public function createFeedback( $title,$content,FeedbackTypeInterface $feedbackTypeId, UserInterface $user);
-    
+    public function createFeedback($title, $content, FeedbackTypeInterface $feedbackTypeId, UserInterface $user);
+
     /**
      * Persists a feedback.
      *
@@ -37,7 +46,7 @@ interface FeedbackManagerInterface
      * @return void
      */
     public function saveFeedback(FeedbackInterface $feedback);
-    
+
     /**
      * Finds a feedback by specified criteria.
      *
@@ -45,7 +54,7 @@ interface FeedbackManagerInterface
      * @return FeedbackInterface
      */
     public function findFeedbackBy(array $criteria);
-            
+
     /**
      * Finds a feedback by id.
      *
