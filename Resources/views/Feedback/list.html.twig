@@ -15,7 +15,7 @@
     {% if app.user is null %}
             {% set condition = true %}
     {% endif %}
-    
+    {% if feedbacks|length > 0 %}
     {% for feedback in feedbacks if feedback.isDisplayable() %}
     
     <div class="feedback-listing">
@@ -54,5 +54,8 @@
     </div>
     
     {% endfor %}
+    {% else %}
+    <div class="no_result"> No result found</div>
+    {% endif %}
 </div>
 </div>
