@@ -75,7 +75,11 @@ class FeedbackManager extends BaseFeedbackManager
     {
         $position = ($pageNumber * $resultsPerPage);
         $repo = $this->em->getRepository($this->class);
-        $qb = $repo->createQueryBuilder('f');
+        $qb = $repo->createQueryBuilder('f')
+                   ->select('f')
+                   ->leftJoin('f.feedbackType', 'ft')
+                   ->where('LOCATE(f.status,ft.displayable_statuses) > :zero')
+                   ->setParameter('zero', 0);
         
         if ($asParams != '' && sizeof($asParams))
         {
@@ -83,7 +87,7 @@ class FeedbackManager extends BaseFeedbackManager
             {
                 $qb->andWhere('f.feedbackType = :feedbackType')->setParameter('feedbackType', $asParams['feedbacktype_id']);
             }
-
+            
             if (isset($asParams['statuses']) && $asParams['statuses'] != '')
             {
                 $qb->andWhere('f.status = :status')->setParameter('status', $asParams['statuses']);
@@ -93,6 +97,8 @@ class FeedbackManager extends BaseFeedbackManager
             {
                 $qb->andWhere('f.title LIKE :query')->setParameter('query', '%' . $asParams['title'] . '%');
             }
+            
+            
         }
         $qb->addOrderBy('f.created_at' , 'DESC')
            ->setFirstResult($position)

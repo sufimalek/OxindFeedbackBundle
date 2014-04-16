@@ -9,8 +9,10 @@
 <div class="loader" id="loader" style="display: none;"> 
     <img src="{{ asset('bundles/oxindfeedback/images/loader.gif') }}" />
 </div>
-<a id="next" href="">Next</a>
-<a id="prev" href="">Prev</a>
+<div class="custpagination">
+<a id="prev" href="" class="page">Prev</a>
+<a id="next" href="" class="page">Next</a>
+</div>
 <script type="text/javascript">
     
 $(document).ready(function() {
@@ -28,25 +30,25 @@ $(document).ready(function() {
             data: data,
             dataType: "html",
             success: function(data) {
-                
                 $("#update_listing").html(data);
                 $('#loader').hide();
-                var pageCount = $("#pagecount").data('totalpage');
-   
-                if( pageCount > 1 )
+                
+                pageCount = $("#pagecount").data('totalpage');
+                currentPage = $("#feecback_filter_page").attr('value');
+                $("#next").show();
+                $("#prev").show();
+                if( pageCount <1 )
                 {
-                    $("#next").show();
-                    $("#prev").show();
-                        var currentPage = $("#feecback_filter_page").attr('value');
-                       if(currentPage == 0)
-                       {
-                           $("#prev").hide();
-                       }
-                }
-                else
-                {                    
                     $("#next").hide();
                     $("#prev").hide();
+                }
+                if(currentPage == 0)
+                {
+                    $("#prev").hide();
+                }
+                if(currentPage == pageCount -1)
+                {
+                    $("#next").hide();
                 }
             }
         });
@@ -81,40 +83,21 @@ $(document).ready(function() {
       var pageNo = parseInt(pageValue);
       pageNo++;
       $("#feecback_filter_page").attr('value',pageNo);
-      if(pageNo == pageCount-1)
-      {
-          $(this).hide();
-      }
-      else
-      {
-          $("#prev").show();
-      }
       searchAjax();
    });
    
    $("#prev").click(function(e){
-      e.preventDefault(); 
-      pageCount = $("#pagecount").data('totalpage');
-      var pageValue = $("#feecback_filter_page").attr('value');
-                   var pageNo = parseInt(pageValue);
-
-                   if (pageNo > 0)
-                   {
-                       pageNo--;
-                   }
-                   if (pageNo == 0)
-                   {
-                       $(this).hide();
-                   }
-                   else
-                   {
-                       $("#next").show();
-                   }
-
-                   $("#feecback_filter_page").attr('value', pageNo);
-
-                   searchAjax();
-               });
+        e.preventDefault(); 
+        pageCount = $("#pagecount").data('totalpage');
+        var pageValue = $("#feecback_filter_page").attr('value');
+        var pageNo = parseInt(pageValue);
+        if (pageNo > 0)
+        {
+            pageNo--;
+        }
+        $("#feecback_filter_page").attr('value', pageNo);
+        searchAjax();
+        });
     }
     else
     {
