@@ -1,12 +1,13 @@
 {% trans_default_domain "feedback" %}
 
-{% for success in app.session.flashbag.get('success') if success != null %}
+
+
+<div id="update_listing">
+    {% for success in app.session.flashbag.get('success') if success != null %}
     <div class="flash-success">
         {{ success }}
     </div>
 {% endfor %}
-
-<div id="update_listing">
 <input id="pagecount" type="hidden" data-totalpage="{{ page_count }}"/>
 <div class="feedbacklisting" id="feedback-list-container" >
     
@@ -58,4 +59,6 @@
     <div class="no_result"> No result found</div>
     {% endif %}
 </div>
+
 </div>
+

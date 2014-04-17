@@ -2,108 +2,21 @@
 
 {{ form_start(form, {'attr': {'id': 'feecback_filter'}}) }}
     {{ form_errors(form) }}
-  <div class="form-group">
-    {{ form_row(form.statuses) }}
-  </div>
-{{ form_end(form) }}
-<div class="loader" id="loader" style="display: none;"> 
-    <img src="{{ asset('bundles/oxindfeedback/images/loader.gif') }}" />
-</div>
-<div class="custpagination">
-<a id="prev" href="" class="page">Prev</a>
-<a id="next" href="" class="page">Next</a>
-</div>
-<script type="text/javascript">
-    
-$(document).ready(function() {
- 
-    var pageCount = $("#pagecount").data('totalpage');
-   
-    function searchAjax() {
-        var url = "{{ path('oxind_feedback_search') }}";
-        var data= $("#feecback_filter").serialize();
-        var searchText = $("#feecback_filter_search").attr("value");
-        $('#loader').show();
-        $.ajax({
-            type: "POST",
-            url: url, // Or your url generator like Routing.generate('discussion_create')
-            data: data,
-            dataType: "html",
-            success: function(data) {
-                $("#update_listing").html(data);
-                $('#loader').hide();
-                
-                pageCount = $("#pagecount").data('totalpage');
-                currentPage = $("#feecback_filter_page").attr('value');
-                $("#next").show();
-                $("#prev").show();
-                if( pageCount <1 )
-                {
-                    $("#next").hide();
-                    $("#prev").hide();
-                }
-                if(currentPage == 0)
-                {
-                    $("#prev").hide();
-                }
-                if(currentPage == pageCount -1)
-                {
-                    $("#next").hide();
-                }
-            }
-        });
 
-        return false;
-    }
+    {{ form_label(form.search) }}
+    {{ form_widget(form.search) }}
+
+    {{ form_label(form.statuses) }}
+    {{ form_widget(form.statuses) }}
     
-   $('#feecback_filter_statuses').change(function(){ 
-   $("#feecback_filter_page").attr('value',0);
-   searchAjax();
     
-    });
-   
-   $('#feecback_filter_search').on('input',function(){ 
-   $("#feecback_filter_page").attr('value',0);
-   searchAjax();
-   
-    });
-   
-   
-   if(pageCount > 0 )
-   {
-       var currentPage = $("#feecback_filter_page").attr('value');
-       if(currentPage == 0)
-       {
-           $("#prev").hide();
-       }
-   $("#next").click(function(e){
-      e.preventDefault(); 
-      pageCount = $("#pagecount").data('totalpage');
-      var pageValue = $("#feecback_filter_page").attr('value');
-      var pageNo = parseInt(pageValue);
-      pageNo++;
-      $("#feecback_filter_page").attr('value',pageNo);
-      searchAjax();
-   });
-   
-   $("#prev").click(function(e){
-        e.preventDefault(); 
-        pageCount = $("#pagecount").data('totalpage');
-        var pageValue = $("#feecback_filter_page").attr('value');
-        var pageNo = parseInt(pageValue);
-        if (pageNo > 0)
-        {
-            pageNo--;
-        }
-        $("#feecback_filter_page").attr('value', pageNo);
-        searchAjax();
-        });
-    }
-    else
-    {
-        $("#next").hide();
-        $("#prev").hide();
-    }
-   
-});
-</script>
+    <div class="loader" id="loader" style="display: none;"> 
+        <img src="{{ asset('bundles/oxindfeedback/images/loader.gif') }}" />
+    </div>
+{{ form_end(form) }}
+
+<div class="custpagination">
+    <a id="prev" href="" class="page">Prev</a>
+    <a id="next" href="" class="page">Next</a>
+</div>
+

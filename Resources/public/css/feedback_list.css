@@ -63,6 +63,7 @@
     float: left;
     margin-left: 10px;
     padding-top: 0;
+    width: 100%;
 }
 .form-title {
     background: none repeat scroll 0 0 #AFE1F8;
@@ -74,6 +75,7 @@
 .feedback-form-container {
     margin-left: 10px;
     margin-right: 10px;    
+    widows: 100%;in
 }
 
 .form-group > input {
@@ -111,13 +113,41 @@
     background: -moz-linear-gradient(0% 0% 270deg,#FEFEFE, #f0f0f0);
 }
 .formfilter{
-    min-height: 120px;
+    min-height: 90px;
+    margin-top: 15px;
 }
 .loader{
-    min-height: 32px;
-    margin-bottom: 0px;
+  position: relative;
+  text-align: center;
+  top: 32px;
 }
+
 .custpagination{
     
 }
 .feedback-form-container > div > a{ margin-left: 10px;}
+#next{float:right}
+#prev{flot:left}
+.formfilter > form {
+  min-height: 65px;
+}
+.nav-tabs {
+  border-bottom: 1px solid #DDDDDD;
+}
+.nav-tabs > li {
+  float: left;
+  margin-bottom: -1px;
+}
+.nav > li {
+  display: block;
+  position: relative;
+}
+.nav-tabs > li > a {
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 4px 4px 0 0;
+  line-height: 1.42857;
+  margin-right: 2px;
+}
+.nav-tabs > li > a:hover {
+  border-color: #EEEEEE #EEEEEE #DDDDDD;
+}
