@@ -1,0 +1,27 @@
+
+
+<script>
+    
+var data = new Array();
+{% for feedbackDisplay in feedbackDisplays %}
+data[{{ loop.index0 }}] = new Array();
+data[{{ loop.index0 }}]['start'] = new Date({{ feedbackDisplay.getStartDate().getTimestamp()*1000 }}) ;
+{% if feedbackDisplay.getEndDate() != null %}
+data[{{ loop.index0 }}]['end'] = new Date({{feedbackDisplay.getEndDate().getTimestamp()*1000}}) ;
+{% endif %}
+data[{{ loop.index0 }}]['content'] = "{{ feedbackDisplay.getFeedback().getTitle() }}" ;
+{% endfor %} 
+
+var options = {
+'width':  '100%',
+'height': '300px',
+'editable': false,   // enable dragging and editing events
+'style': 'box'
+};
+
+// Instantiate our timeline object.
+timeline = new links.Timeline(document.getElementById('{{ div_id }}'));
+
+// Draw our timeline with the created data and options
+timeline.draw(data, options);
+</script>
